@@ -9,6 +9,8 @@ protocol MyAmazingNamespace {
   enum Shapes {
     SQUARE, TRIANGLE, CIRCLE, OVAL
   }
+
+  fixed MD5(16);
 }
 
 ---
@@ -31,6 +33,14 @@ protocol MyAmazingNamespace {
           (enumeral)
           (enumeral)
           (enumeral)
+        )
+      )
+      (fixed_declaration
+        (call_expression
+          (identifier)
+          (arguments
+            (number)
+          )
         )
       )
     )
