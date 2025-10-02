@@ -1,0 +1,36 @@
+========================
+Protocol Definition
+========================
+
+protocol MyProtocol {
+
+}
+
+---
+
+(program
+  (protocol_declaration (identifier)
+    (statement_block)
+  )
+)
+
+========================
+Protocol With Namespace
+========================
+
+@namespace("my.amazing_namespace.v1")
+protocol MyProtocol {
+
+}
+
+---
+
+(program
+  (protocol_declaration
+    (namespace_declaration
+        (string))
+    (identifier)
+    (statement_block
+    )
+  )
+)

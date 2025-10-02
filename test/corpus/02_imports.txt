@@ -1,0 +1,23 @@
+========================
+Imports
+========================
+
+import idl "foo.avdl";
+import protocol "foo.avpr";
+import schema "foo.avsc";
+---
+
+(program
+  (import_declaration
+    (identifier)
+    (string)
+  )
+  (import_declaration
+    (identifier)
+    (string)
+  )
+  (import_declaration
+    (identifier)
+    (string)
+  )
+)

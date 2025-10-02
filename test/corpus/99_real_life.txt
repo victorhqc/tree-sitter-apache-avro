@@ -1,0 +1,38 @@
+========================
+Real Life Example
+========================
+
+import idl "foo.avdl";
+
+@namespace("my.amazing_namespace.v1")
+protocol MyAmazingNamespace {
+  enum Shapes {
+    SQUARE, TRIANGLE, CIRCLE, OVAL
+  }
+}
+
+---
+
+(program
+  (import_declaration
+    (identifier)
+    (string)
+  )
+  (protocol_declaration
+    (namespace_declaration
+      (string)
+    )
+    (identifier)
+    (statement_block
+      (enum_declaration
+        (identifier)
+        (enum_block
+          (enumeral)
+          (enumeral)
+          (enumeral)
+          (enumeral)
+        )
+      )
+    )
+  )
+)

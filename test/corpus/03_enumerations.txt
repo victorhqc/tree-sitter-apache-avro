@@ -1,0 +1,44 @@
+========================
+Enumeration
+========================
+
+enum Shapes {
+  SQUARE, TRIANGLE, CIRCLE, OVAL
+}
+---
+
+(program
+  (enum_declaration
+    (identifier)
+    (enum_block
+        (enumeral)
+        (enumeral)
+        (enumeral)
+        (enumeral)
+    )
+  )
+)
+
+========================
+Enumeration With Default Value
+========================
+
+enum Shapes {
+  SQUARE, TRIANGLE, CIRCLE, OVAL
+} = CIRCLE;
+---
+
+(program
+  (enum_declaration
+    (identifier)
+    (enum_block
+        (enumeral)
+        (enumeral)
+        (enumeral)
+        (enumeral)
+    )
+    (default_enumeral
+        (enumeral)
+    )
+  )
+)
