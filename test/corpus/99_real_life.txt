@@ -17,6 +17,11 @@ protocol MyAmazingNamespace {
     boolean active;
     long salary;
   }
+
+  error Kaboom {
+    string explanation;
+    int result_code = -1;
+  }
 }
 
 ---
@@ -52,7 +57,7 @@ protocol MyAmazingNamespace {
         )
       )
       (record_declaration (identifier)
-        (record_block
+        (struct_block
           (field_declaration
             (primitive_type)
             (identifier)
@@ -64,6 +69,26 @@ protocol MyAmazingNamespace {
           (field_declaration
             (primitive_type)
             (identifier)
+          )
+        )
+      )
+
+      (error_declaration (identifier)
+        (struct_block
+          (field_declaration
+            (primitive_type)
+            (identifier)
+          )
+          (field_declaration
+            (primitive_type)
+            (default_value_expression
+              (identifier)
+              (value
+                (literal_type
+                  (number)
+                )
+              )
+            )
           )
         )
       )

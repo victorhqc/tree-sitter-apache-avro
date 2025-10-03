@@ -29,6 +29,7 @@ module.exports = grammar({
         $.enum_declaration,
         $.fixed_declaration,
         $.record_declaration,
+        $.error_declaration,
         $.field_declaration,
       ),
 
@@ -51,7 +52,10 @@ module.exports = grammar({
       prec(PREC.MEMBER, seq("fixed", $.call_expression, ";")),
 
     record_declaration: ($) =>
-      prec(PREC.MEMBER, seq("record", $.identifier, $.record_block)),
+      prec(PREC.MEMBER, seq("record", $.identifier, $.struct_block)),
+
+    error_declaration: ($) =>
+      prec(PREC.MEMBER, seq("error", $.identifier, $.struct_block)),
 
     enum_declaration: ($) =>
       prec(
@@ -68,6 +72,8 @@ module.exports = grammar({
               $.enum_declaration,
               $.fixed_declaration,
               $.record_declaration,
+              $.error_declaration,
+              $.field_declaration,
             ),
           ),
         ),
@@ -77,7 +83,7 @@ module.exports = grammar({
     enum_block: ($) =>
       seq("{", optional(repeat(seq($.enumeral, optional(",")))), "}"),
 
-    record_block: ($) => seq("{", optional(repeat($.field_declaration)), "}"),
+    struct_block: ($) => seq("{", optional(repeat($.field_declaration)), "}"),
 
     default_enumeral: ($) => seq("=", $.enumeral, ";"),
 

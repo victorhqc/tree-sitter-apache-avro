@@ -1,0 +1,47 @@
+========================
+Empty Error
+========================
+
+error MyRecord {}
+
+---
+
+(program
+  (error_declaration (identifier)
+    (struct_block)
+  )
+)
+
+========================
+Simple Error
+========================
+
+
+error Kaboom {
+  string explanation;
+  int result_code = -1;
+}
+
+---
+
+(program
+  (error_declaration (identifier)
+    (struct_block
+      (field_declaration
+        (primitive_type)
+        (identifier)
+      )
+      (field_declaration
+        (primitive_type)
+        (default_value_expression
+          (identifier)
+          (value
+            (literal_type
+              (number)
+            )
+          )
+        )
+      )
+    )
+  )
+)
