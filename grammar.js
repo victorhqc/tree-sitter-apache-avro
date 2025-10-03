@@ -96,10 +96,13 @@ module.exports = grammar({
 
     field_declaration: ($) =>
       seq(
-        $.primitive_type,
+        optional($.logical_annotation),
+        choice($.primitive_type, $.logical_type),
         choice($.identifier, $.default_value_expression),
         ";",
       ),
+
+    logical_annotation: ($) => seq("@", $.identifier, $.arguments),
 
     assignment_expression: ($) =>
       prec.right(
@@ -141,6 +144,19 @@ module.exports = grammar({
         "double",
         "null",
         "bytes",
+      ),
+
+    logical_type: ($) =>
+      choice($.known_logical_type, $.identifier, $.call_expression),
+
+    known_logical_type: ($) =>
+      choice(
+        seq("decimal", optional($.arguments)),
+        "date",
+        "time_ms",
+        "timestamp_ms",
+        "local_timestamp_ms",
+        "uuid",
       ),
 
     literal_type: ($) => choice($.number, $.string, $.true, $.false, $.null),

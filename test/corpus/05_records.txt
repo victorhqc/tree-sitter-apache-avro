@@ -132,3 +132,161 @@ record MyRecord {
     )
   )
 )
+
+========================
+Record with logical types
+========================
+
+record MyRecord {
+  date someDate;
+  decimal someDecimal;
+  decimal(9,2) someDecimal = 1234.05;
+  uuid pk = "a1a2a3a4-b1b2-c1c2-d1d2-d3d4d5d6d7d8";
+}
+
+---
+
+(program
+  (record_declaration (identifier)
+    (struct_block
+      (field_declaration
+        (logical_type
+          (known_logical_type)
+        )
+        (identifier)
+      )
+      (field_declaration
+        (logical_type
+          (known_logical_type)
+        )
+        (identifier)
+      )
+      (field_declaration
+        (logical_type
+          (known_logical_type
+            (arguments
+              (literal_type
+                (number)
+              )
+              (literal_type
+                (number)
+              )
+            )
+          )
+        )
+        (default_value_expression
+          (identifier)
+          (value
+            (literal_type
+              (number)
+            )
+          )
+        )
+      )
+      (field_declaration
+        (logical_type
+          (known_logical_type)
+        )
+        (default_value_expression
+          (identifier)
+          (value
+            (literal_type
+              (string)
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
+
+========================
+Record with unknown logical types
+========================
+
+record MyRecord {
+  unknown_type someUnknown;
+  unknown("some") someUnknown;
+}
+
+---
+
+(program
+  (record_declaration (identifier)
+    (struct_block
+      (field_declaration
+        (logical_type
+          (identifier)
+        )
+        (identifier)
+      )
+      (field_declaration
+        (logical_type
+          (call_expression
+            (identifier)
+            (arguments
+              (literal_type
+                (string)
+              )
+            )
+          )
+        )
+        (identifier)
+      )
+    )
+  )
+)
+
+========================
+Record logical types as annotation
+========================
+
+record Job {
+  @logicalType("timestamp-micros")
+  long finishTime;
+}
+
+---
+
+(program
+  (record_declaration (identifier)
+    (struct_block
+      (field_declaration
+        (logical_annotation
+          (identifier)
+          (arguments
+            (literal_type
+              (string)
+            )
+          )
+        )
+        (primitive_type)
+        (identifier)
+      )
+    )
+  )
+)
+
+========================
+Record referencing schemata
+========================
+
+record Card {
+  Suit suit;
+}
+
+---
+
+(program
+  (record_declaration (identifier)
+    (struct_block
+      (field_declaration
+        (logical_type
+          (identifier)
+        )
+        (identifier)
+      )
+    )
+  )
+)
