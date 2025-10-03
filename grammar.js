@@ -97,10 +97,12 @@ module.exports = grammar({
     field_declaration: ($) =>
       seq(
         optional($.logical_annotation),
-        choice($.primitive_type, $.logical_type),
+        choice($._column_types),
         choice($.identifier, $.default_value_expression),
         ";",
       ),
+
+    _column_types: ($) => choice($.primitive_type, $.logical_type, $.array),
 
     logical_annotation: ($) => seq("@", $.identifier, $.arguments),
 
@@ -134,17 +136,7 @@ module.exports = grammar({
       return token(seq(alpha, repeat(alphanumeric)));
     },
 
-    primitive_type: (_) =>
-      choice(
-        "int",
-        "long",
-        "string",
-        "boolean",
-        "float",
-        "double",
-        "null",
-        "bytes",
-      ),
+    array: ($) => seq("array<", $._column_types, ">"),
 
     logical_type: ($) =>
       choice($.known_logical_type, $.identifier, $.call_expression),
@@ -157,6 +149,18 @@ module.exports = grammar({
         "timestamp_ms",
         "local_timestamp_ms",
         "uuid",
+      ),
+
+    primitive_type: (_) =>
+      choice(
+        "int",
+        "long",
+        "string",
+        "boolean",
+        "float",
+        "double",
+        "null",
+        "bytes",
       ),
 
     literal_type: ($) => choice($.number, $.string, $.true, $.false, $.null),
