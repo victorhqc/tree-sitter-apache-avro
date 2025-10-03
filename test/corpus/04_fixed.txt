@@ -12,7 +12,9 @@ fixed SHA256(32);
     (call_expression
       (identifier)
       (arguments
-        (number)
+        (literal_type
+          (number)
+        )
       )
     )
   )
@@ -20,7 +22,9 @@ fixed SHA256(32);
     (call_expression
       (identifier)
       (arguments
-        (number)
+        (literal_type
+          (number)
+        )
       )
     )
   )

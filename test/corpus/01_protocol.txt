@@ -2,15 +2,13 @@
 Protocol Definition
 ========================
 
-protocol MyProtocol {
-
-}
+protocol MyProtocol {}
 
 ---
 
 (program
   (protocol_declaration (identifier)
-    (statement_block)
+    (protocol_block)
   )
 )
 
@@ -30,7 +28,7 @@ protocol MyProtocol {
     (namespace_declaration
         (string))
     (identifier)
-    (statement_block
+    (protocol_block
     )
   )
 )
