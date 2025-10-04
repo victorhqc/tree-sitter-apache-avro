@@ -12,12 +12,19 @@ const PREC = {
   COMMENT: 1,
   STRING: 2, // In a string, prefer string characters over comments
 
-  CALL: 8,
+  CALL: 6,
+  FIELD: 7,
+  UNION: 8,
   MEMBER: 9,
+  PROTOCOL: 10,
 };
 
 module.exports = grammar({
   name: "apache_avro",
+
+  // conflicts: ($) => [[$.protocol_block, $.field_declaration]],
+
+  word: ($) => $.identifier,
 
   rules: {
     program: ($) => repeat($._declaration),
@@ -35,10 +42,10 @@ module.exports = grammar({
 
     protocol_declaration: ($) =>
       choice(
-        prec(PREC.MEMBER, seq("protocol", $.identifier, $.protocol_block)),
+        prec(PREC.PROTOCOL, seq("protocol", $.identifier, $.protocol_block)),
         seq(
           $.namespace_declaration,
-          prec(PREC.MEMBER, seq("protocol", $.identifier, $.protocol_block)),
+          prec(PREC.PROTOCOL, seq("protocol", $.identifier, $.protocol_block)),
         ),
       ),
 
@@ -103,7 +110,7 @@ module.exports = grammar({
       ),
 
     _column_types: ($) =>
-      choice($.primitive_type, $.logical_type, $.array, $.map),
+      choice($.primitive_type, $.logical_type, $.array, $.map, $.union),
 
     logical_annotation: ($) => seq("@", $.identifier, $.arguments),
 
@@ -140,6 +147,8 @@ module.exports = grammar({
     array: ($) => seq("array<", $._column_types, ">"),
 
     map: ($) => seq("map<", $._column_types, ">"),
+
+    union: ($) => seq("union {", commaSep($._column_types), "}"),
 
     logical_type: ($) =>
       choice($.known_logical_type, $.identifier, $.call_expression),
@@ -201,8 +210,6 @@ module.exports = grammar({
 
       return token(decimalLiteral);
     },
-
-    word: ($) => $.identifier,
 
     true: (_) => "true",
     false: (_) => "false",

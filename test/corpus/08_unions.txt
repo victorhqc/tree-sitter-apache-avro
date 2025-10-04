@@ -1,0 +1,101 @@
+========================
+Union
+========================
+
+union { null, string } optionalString;
+
+---
+
+(program
+  (field_declaration
+    (union
+      (primitive_type)
+      (primitive_type)
+    )
+    (identifier)
+  )
+)
+
+========================
+Union in Record
+========================
+
+record RecordWithUnion {
+  union { null, string } optionalString;
+  union { decimal(12, 6), float } number;
+}
+
+---
+
+(program
+  (record_declaration
+    (identifier)
+    (struct_block
+      (field_declaration
+        (union
+          (primitive_type)
+          (primitive_type)
+        )
+        (identifier)
+      )
+      (field_declaration
+        (union
+          (logical_type
+            (known_logical_type
+              (arguments
+                (literal_type
+                  (number)
+                )
+                (literal_type
+                  (number)
+                )
+              )
+            )
+          )
+          (primitive_type)
+        )
+        (identifier)
+      )
+    )
+  )
+)
+
+========================
+Map of Union
+========================
+
+map<union { null, string }> optionalStrings;
+
+---
+
+(program
+  (field_declaration
+    (map
+      (union
+        (primitive_type)
+        (primitive_type)
+      )
+    )
+    (identifier)
+  )
+)
+
+========================
+Array of Union
+========================
+
+array<union { null, string }> optionalStrings;
+
+---
+
+(program
+  (field_declaration
+    (array
+      (union
+        (primitive_type)
+        (primitive_type)
+      )
+    )
+    (identifier)
+  )
+)
