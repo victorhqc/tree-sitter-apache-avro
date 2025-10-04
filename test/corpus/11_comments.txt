@@ -1,0 +1,41 @@
+========================
+Comments
+========================
+
+// This is a comment
+
+/* This is another comment */
+
+---
+
+(program
+  (comment)
+  (comment)
+)
+
+========================
+Comments In Record
+========================
+
+// Some Comment
+record MyRecord {
+  // Description
+  int /* Hello*/  int_field; // these are more comments
+}
+
+---
+
+(program
+  (comment)
+  (record_declaration (identifier)
+    (struct_block
+      (comment)
+      (field_declaration
+        (primitive_type)
+        (comment)
+        (identifier)
+      )
+      (comment)
+    )
+  )
+)

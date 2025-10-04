@@ -26,6 +26,8 @@ module.exports = grammar({
 
   word: ($) => $.identifier,
 
+  extras: ($) => [$.comment, /[\s\p{Zs}\uFEFF\u2028\u2029\u2060\u200B]/],
+
   rules: {
     program: ($) => repeat($._declaration),
 
@@ -243,6 +245,15 @@ module.exports = grammar({
     true: (_) => "true",
     false: (_) => "false",
     null: (_) => "null",
+
+    // http://stackoverflow.com/questions/13014947/regex-to-match-a-c-style-multiline-comment/36328890#36328890
+    comment: (_) =>
+      token(
+        choice(
+          seq("//", /[^\r\n\u2028\u2029]*/),
+          seq("/*", /[^*]*\*+([^/*][^*]*\*+)*/, "/"),
+        ),
+      ),
   },
 });
 
