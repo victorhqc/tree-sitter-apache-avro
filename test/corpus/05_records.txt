@@ -223,7 +223,7 @@ record MyRecord {
       )
       (field_declaration
         (logical_type
-          (call_statement
+          (call_expression
             (identifier)
             (arguments
               (literal_type

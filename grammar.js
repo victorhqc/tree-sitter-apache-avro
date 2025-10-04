@@ -38,6 +38,7 @@ module.exports = grammar({
         $.record_declaration,
         $.error_declaration,
         $.field_declaration,
+        $.rpc_message_declaration,
       ),
 
     protocol_declaration: ($) =>
@@ -55,7 +56,7 @@ module.exports = grammar({
       prec(PREC.MEMBER, seq("import", $.identifier, $.string, ";")),
 
     fixed_declaration: ($) =>
-      prec(PREC.MEMBER, seq("fixed", $.call_statement, ";")),
+      prec(PREC.MEMBER, seq("fixed", $.call_expression, ";")),
 
     record_declaration: ($) =>
       prec(PREC.MEMBER, seq("record", $.identifier, $.struct_block)),
@@ -76,10 +77,12 @@ module.exports = grammar({
           repeat(
             choice(
               $.enum_declaration,
+              $.import_declaration,
               $.fixed_declaration,
               $.record_declaration,
               $.error_declaration,
               $.field_declaration,
+              $.rpc_message_declaration,
             ),
           ),
         ),
@@ -95,7 +98,7 @@ module.exports = grammar({
 
     enumeral: ($) => alias($.identifier, "enumeral"),
 
-    call_statement: ($) =>
+    call_expression: ($) =>
       prec(PREC.CALL, seq($._constructable_expression, $.arguments)),
 
     arguments: ($) => seq("(", commaSep(optional($._expression)), ")"),
@@ -103,12 +106,29 @@ module.exports = grammar({
     field_declaration: ($) =>
       seq(
         optional($.logical_annotation),
-        choice($._column_types),
+        $._possible_types,
         choice($.identifier, $.default_value_expression),
         ";",
       ),
 
-    _column_types: ($) =>
+    rpc_message_declaration: ($) =>
+      seq(
+        $._possible_types,
+        seq($.identifier, $.parameter_list),
+        optional(choice($.throw_declaration, $.oneway)),
+        ";",
+      ),
+
+    parameter_list: ($) => seq("(", commaSep(optional($.parameter)), ")"),
+
+    parameter: ($) =>
+      seq($._possible_types, choice($.identifier, $.default_value_expression)),
+
+    throw_declaration: ($) => seq("throws", $.identifier),
+
+    oneway: ($) => "oneway",
+
+    _possible_types: ($) =>
       choice(
         $.primitive_type,
         $.logical_type,
@@ -136,7 +156,7 @@ module.exports = grammar({
       choice(
         $._constructable_expression,
         $.assignment_expression,
-        $.call_statement,
+        $.call_expression,
       ),
 
     _constructable_expression: ($) => choice($.literal_type, $.identifier),
@@ -150,16 +170,16 @@ module.exports = grammar({
       return token(seq(alpha, repeat(alphanumeric)));
     },
 
-    array: ($) => seq("array<", $._column_types, ">"),
+    array: ($) => seq("array<", $._possible_types, ">"),
 
-    map: ($) => seq("map<", $._column_types, ">"),
+    map: ($) => seq("map<", $._possible_types, ">"),
 
-    union: ($) => seq("union {", commaSep($._column_types), "}"),
+    union: ($) => seq("union {", commaSep($._possible_types), "}"),
 
-    nullable: ($) => seq($._column_types, "?"),
+    nullable: ($) => seq($._possible_types, "?"),
 
     logical_type: ($) =>
-      choice($.known_logical_type, $.identifier, $.call_statement),
+      choice($.known_logical_type, $.identifier, $.call_expression),
 
     known_logical_type: ($) =>
       choice(
@@ -181,6 +201,7 @@ module.exports = grammar({
         "double",
         "null",
         "bytes",
+        "void",
       ),
 
     literal_type: ($) => choice($.number, $.string, $.true, $.false, $.null),

@@ -9,7 +9,7 @@ fixed SHA256(32);
 
 (program
   (fixed_declaration
-    (call_statement
+    (call_expression
       (identifier)
       (arguments
         (literal_type
@@ -19,7 +19,7 @@ fixed SHA256(32);
     )
   )
   (fixed_declaration
-    (call_statement
+    (call_expression
       (identifier)
       (arguments
         (literal_type

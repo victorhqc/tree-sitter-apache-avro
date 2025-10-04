@@ -47,7 +47,7 @@ protocol MyAmazingNamespace {
         )
       )
       (fixed_declaration
-        (call_statement
+        (call_expression
           (identifier)
           (arguments
             (literal_type
