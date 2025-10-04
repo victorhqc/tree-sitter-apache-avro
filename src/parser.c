@@ -884,12 +884,12 @@ static const TSCharacterRange extras_character_set_1[] = {
 };
 
 static const TSCharacterRange sym_anotation_identifier_character_set_1[] = {
-  {'$', '$'}, {'-', '-'}, {'A', 'Z'}, {'\\', '\\'}, {'_', 'z'}, {0x7f, 0x9f}, {0xa1, 0x167f}, {0x1681, 0x1fff},
+  {'$', '$'}, {'-', '.'}, {'A', 'Z'}, {'\\', '\\'}, {'_', 'z'}, {0x7f, 0x9f}, {0xa1, 0x167f}, {0x1681, 0x1fff},
   {0x200c, 0x2027}, {0x202a, 0x202e}, {0x2030, 0x205e}, {0x2061, 0x2fff}, {0x3001, 0xfefe}, {0xff00, 0x10ffff},
 };
 
 static const TSCharacterRange sym_anotation_identifier_character_set_2[] = {
-  {'$', '$'}, {'-', '-'}, {'0', '9'}, {'A', 'Z'}, {'\\', '\\'}, {'_', 'z'}, {0x7f, 0x9f}, {0xa1, 0x167f},
+  {'$', '$'}, {'-', '.'}, {'0', '9'}, {'A', 'Z'}, {'\\', '\\'}, {'_', 'z'}, {0x7f, 0x9f}, {0xa1, 0x167f},
   {0x1681, 0x1fff}, {0x200c, 0x2027}, {0x202a, 0x202e}, {0x2030, 0x205e}, {0x2061, 0x2fff}, {0x3001, 0xfefe}, {0xff00, 0x10ffff},
 };
 

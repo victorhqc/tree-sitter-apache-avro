@@ -67,7 +67,7 @@ Serialize/Deserialize
 record MyRecord {
   @java-class("BigDecimal") string value;
   @java-key-class("io.File") map<string> files;
-  array<@java-class("BigDecimal") string> weights;
+  array<@java.class("BigDecimal") string> weights;
 }
 
 ---
