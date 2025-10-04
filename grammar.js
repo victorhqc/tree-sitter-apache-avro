@@ -44,19 +44,18 @@ module.exports = grammar({
       choice(
         prec(PREC.PROTOCOL, seq("protocol", $.identifier, $.protocol_block)),
         seq(
-          $.namespace_declaration,
+          $.namespace,
           prec(PREC.PROTOCOL, seq("protocol", $.identifier, $.protocol_block)),
         ),
       ),
 
-    namespace_declaration: ($) =>
-      prec(PREC.MEMBER, seq("@namespace(", $.string, ")")),
+    namespace: ($) => prec(PREC.MEMBER, seq("@namespace(", $.string, ")")),
 
     import_declaration: ($) =>
       prec(PREC.MEMBER, seq("import", $.identifier, $.string, ";")),
 
     fixed_declaration: ($) =>
-      prec(PREC.MEMBER, seq("fixed", $.call_expression, ";")),
+      prec(PREC.MEMBER, seq("fixed", $.call_statement, ";")),
 
     record_declaration: ($) =>
       prec(PREC.MEMBER, seq("record", $.identifier, $.struct_block)),
@@ -96,7 +95,7 @@ module.exports = grammar({
 
     enumeral: ($) => alias($.identifier, "enumeral"),
 
-    call_expression: ($) =>
+    call_statement: ($) =>
       prec(PREC.CALL, seq($._constructable_expression, $.arguments)),
 
     arguments: ($) => seq("(", commaSep(optional($._expression)), ")"),
@@ -137,7 +136,7 @@ module.exports = grammar({
       choice(
         $._constructable_expression,
         $.assignment_expression,
-        $.call_expression,
+        $.call_statement,
       ),
 
     _constructable_expression: ($) => choice($.literal_type, $.identifier),
@@ -160,7 +159,7 @@ module.exports = grammar({
     nullable: ($) => seq($._column_types, "?"),
 
     logical_type: ($) =>
-      choice($.known_logical_type, $.identifier, $.call_expression),
+      choice($.known_logical_type, $.identifier, $.call_statement),
 
     known_logical_type: ($) =>
       choice(

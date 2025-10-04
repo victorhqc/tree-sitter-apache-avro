@@ -32,7 +32,7 @@ protocol MyAmazingNamespace {
     (string)
   )
   (protocol_declaration
-    (namespace_declaration
+    (namespace
       (string)
     )
     (identifier)
@@ -47,7 +47,7 @@ protocol MyAmazingNamespace {
         )
       )
       (fixed_declaration
-        (call_expression
+        (call_statement
           (identifier)
           (arguments
             (literal_type
