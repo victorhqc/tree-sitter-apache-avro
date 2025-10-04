@@ -56,3 +56,62 @@ record MyRecord {
     )
   )
 )
+
+========================
+Maps
+========================
+
+record MyRecord {
+  map<int> numbers;
+  map<Foo> foos;
+  map<array<int>> numberArrays;
+  map<map<string>> nestedMaps;
+  array<map<string>> arrayStrings;
+}
+
+---
+
+(program
+  (record_declaration (identifier)
+    (struct_block
+      (field_declaration
+        (map
+          (primitive_type)
+        )
+        (identifier)
+      )
+      (field_declaration
+        (map
+          (logical_type
+            (identifier)
+          )
+        )
+        (identifier)
+      )
+      (field_declaration
+        (map
+          (array
+            (primitive_type)
+          )
+        )
+        (identifier)
+      )
+      (field_declaration
+        (map
+          (map
+            (primitive_type)
+          )
+        )
+        (identifier)
+      )
+      (field_declaration
+        (array
+          (map
+            (primitive_type)
+          )
+        )
+        (identifier)
+      )
+    )
+  )
+)

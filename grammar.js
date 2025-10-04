@@ -102,7 +102,8 @@ module.exports = grammar({
         ";",
       ),
 
-    _column_types: ($) => choice($.primitive_type, $.logical_type, $.array),
+    _column_types: ($) =>
+      choice($.primitive_type, $.logical_type, $.array, $.map),
 
     logical_annotation: ($) => seq("@", $.identifier, $.arguments),
 
@@ -137,6 +138,8 @@ module.exports = grammar({
     },
 
     array: ($) => seq("array<", $._column_types, ">"),
+
+    map: ($) => seq("map<", $._column_types, ">"),
 
     logical_type: ($) =>
       choice($.known_logical_type, $.identifier, $.call_expression),
