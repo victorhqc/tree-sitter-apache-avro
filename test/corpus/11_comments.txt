@@ -28,7 +28,7 @@ record MyRecord {
 (program
   (comment)
   (record_declaration (identifier)
-    (struct_block
+    (statement_block
       (comment)
       (field_declaration
         (primitive_type)

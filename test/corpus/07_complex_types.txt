@@ -13,7 +13,7 @@ record MyRecord {
 
 (program
   (record_declaration (identifier)
-    (struct_block
+    (statement_block
       (field_declaration
         (array
           (primitive_type)
@@ -73,7 +73,7 @@ record MyRecord {
 
 (program
   (record_declaration (identifier)
-    (struct_block
+    (statement_block
       (field_declaration
         (map
           (primitive_type)

@@ -4,8 +4,8 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
-      "required": true,
+      "multiple": true,
+      "required": false,
       "types": [
         {
           "type": "literal_type",
@@ -250,7 +250,7 @@
           "named": true
         },
         {
-          "type": "struct_block",
+          "type": "statement_block",
           "named": true
         }
       ]
@@ -574,10 +574,6 @@
           "named": true
         },
         {
-          "type": "field_declaration",
-          "named": true
-        },
-        {
           "type": "fixed_declaration",
           "named": true
         },
@@ -614,10 +610,6 @@
         },
         {
           "type": "error_declaration",
-          "named": true
-        },
-        {
-          "type": "field_declaration",
           "named": true
         },
         {
@@ -671,11 +663,15 @@
       "required": true,
       "types": [
         {
+          "type": "anotation_statement",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
         {
-          "type": "struct_block",
+          "type": "statement_block",
           "named": true
         }
       ]
@@ -737,7 +733,7 @@
     }
   },
   {
-    "type": "struct_block",
+    "type": "statement_block",
     "named": true,
     "fields": {},
     "children": {
@@ -850,6 +846,14 @@
   },
   {
     "type": "?",
+    "named": false
+  },
+  {
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "]",
     "named": false
   },
   {

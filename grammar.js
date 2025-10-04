@@ -12,9 +12,10 @@ const PREC = {
   COMMENT: 1,
   STRING: 2, // In a string, prefer string characters over comments
 
-  CALL: 6,
-  FIELD: 7,
-  UNION: 8,
+  CALL: 5,
+  FIELD: 6,
+  UNION: 7,
+  ANOTATION: 8,
   MEMBER: 9,
   PROTOCOL: 10,
 };
@@ -23,7 +24,8 @@ module.exports = grammar({
   name: "apache_avro",
 
   conflicts: ($) => [
-    [$.protocol_declaration, $._anotated_type],
+    // [$.protocol_declaration, $.record_declaration],
+    // [$.record_declaration, $._anotated_type],
     [$._anotated_type, $.nullable],
   ],
 
@@ -32,9 +34,9 @@ module.exports = grammar({
   extras: ($) => [$.comment, /[\s\p{Zs}\uFEFF\u2028\u2029\u2060\u200B]/],
 
   rules: {
-    program: ($) => repeat($._declaration),
+    program: ($) => repeat($._all_declarations),
 
-    _declaration: ($) =>
+    _all_declarations: ($) =>
       choice(
         $.protocol_declaration,
         $.import_declaration,
@@ -42,23 +44,32 @@ module.exports = grammar({
         $.fixed_declaration,
         $.record_declaration,
         $.error_declaration,
-        $.field_declaration,
+        $.rpc_message_declaration,
+      ),
+
+    _protocol_declarations: ($) =>
+      choice(
+        $.import_declaration,
+        $.enum_declaration,
+        $.fixed_declaration,
+        $.record_declaration,
+        $.error_declaration,
         $.rpc_message_declaration,
       ),
 
     protocol_declaration: ($) =>
-      choice(
-        prec(PREC.PROTOCOL, seq("protocol", $.identifier, $.protocol_block)),
+      prec(
+        PREC.MEMBER,
         seq(
-          repeat($.anotation_statement),
-          prec(PREC.PROTOCOL, seq("protocol", $.identifier, $.protocol_block)),
+          optional($.anotation_statement),
+          "protocol",
+          $.identifier,
+          $.protocol_block,
         ),
       ),
 
-    anotation_statement: ($) =>
-      prec(PREC.MEMBER, seq($.anotation_identifier, $.anotation_arguments)),
-
-    anotation_arguments: ($) => seq("(", $.literal_type, ")"),
+    protocol_block: ($) =>
+      seq("{", optional(repeat($._protocol_declarations)), "}"),
 
     import_declaration: ($) =>
       prec(PREC.MEMBER, seq("import", $.identifier, $.string, ";")),
@@ -67,10 +78,18 @@ module.exports = grammar({
       prec(PREC.MEMBER, seq("fixed", $.call_expression, ";")),
 
     record_declaration: ($) =>
-      prec(PREC.MEMBER, seq("record", $.identifier, $.struct_block)),
+      prec(
+        PREC.MEMBER,
+        seq(
+          optional($.anotation_statement),
+          "record",
+          $.identifier,
+          $.statement_block,
+        ),
+      ),
 
     error_declaration: ($) =>
-      prec(PREC.MEMBER, seq("error", $.identifier, $.struct_block)),
+      prec(PREC.MEMBER, seq("error", $.identifier, $.statement_block)),
 
     enum_declaration: ($) =>
       prec(
@@ -78,29 +97,11 @@ module.exports = grammar({
         seq("enum", $.identifier, $.enum_block, optional($.default_enumeral)),
       ),
 
-    protocol_block: ($) =>
-      seq(
-        "{",
-        optional(
-          repeat(
-            choice(
-              $.enum_declaration,
-              $.import_declaration,
-              $.fixed_declaration,
-              $.record_declaration,
-              $.error_declaration,
-              $.field_declaration,
-              $.rpc_message_declaration,
-            ),
-          ),
-        ),
-        "}",
-      ),
-
     enum_block: ($) =>
       seq("{", optional(repeat(seq($.enumeral, optional(",")))), "}"),
 
-    struct_block: ($) => seq("{", optional(repeat($.field_declaration)), "}"),
+    statement_block: ($) =>
+      seq("{", optional(repeat($.field_declaration)), "}"),
 
     default_enumeral: ($) => seq("=", $.enumeral, ";"),
 
@@ -135,6 +136,19 @@ module.exports = grammar({
     throw_declaration: ($) => seq("throws", $.identifier),
 
     oneway: ($) => "oneway",
+
+    anotation_statement: ($) =>
+      prec(PREC.ANOTATION, seq($.anotation_identifier, $.anotation_arguments)),
+
+    anotation_arguments: ($) =>
+      seq(
+        "(",
+        choice(
+          $.literal_type,
+          seq("[", commaSep(optional($.literal_type)), "]"),
+        ),
+        ")",
+      ),
 
     _possible_types: ($) =>
       choice(

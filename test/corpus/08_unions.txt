@@ -2,17 +2,23 @@
 Union
 ========================
 
-union { null, string } optionalString;
+record Union {
+  union { null, string } optionalString;
+}
 
 ---
 
 (program
-  (field_declaration
-    (union
-      (primitive_type)
-      (primitive_type)
+  (record_declaration (identifier)
+    (statement_block
+      (field_declaration
+        (union
+          (primitive_type)
+          (primitive_type)
+        )
+        (identifier)
+      )
     )
-    (identifier)
   )
 )
 
@@ -30,7 +36,7 @@ record RecordWithUnion {
 (program
   (record_declaration
     (identifier)
-    (struct_block
+    (statement_block
       (field_declaration
         (union
           (primitive_type)
@@ -64,19 +70,26 @@ record RecordWithUnion {
 Map of Union
 ========================
 
-map<union { null, string }> optionalStrings;
+record RecordWithUnion {
+  map<union { null, string }> optionalStrings;
+}
 
 ---
 
 (program
-  (field_declaration
-    (map
-      (union
-        (primitive_type)
-        (primitive_type)
+  (record_declaration
+    (identifier)
+    (statement_block
+      (field_declaration
+        (map
+          (union
+            (primitive_type)
+            (primitive_type)
+          )
+        )
+        (identifier)
       )
     )
-    (identifier)
   )
 )
 
@@ -84,18 +97,25 @@ map<union { null, string }> optionalStrings;
 Array of Union
 ========================
 
-array<union { null, string }> optionalStrings;
+record RecordWithUnion {
+  array<union { null, string }> optionalStrings;
+}
 
 ---
 
 (program
-  (field_declaration
-    (array
-      (union
-        (primitive_type)
-        (primitive_type)
+  (record_declaration
+    (identifier)
+    (statement_block
+      (field_declaration
+        (array
+          (union
+            (primitive_type)
+            (primitive_type)
+          )
+        )
+        (identifier)
       )
     )
-    (identifier)
   )
 )

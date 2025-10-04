@@ -8,7 +8,7 @@ record MyRecord {}
 
 (program
   (record_declaration (identifier)
-    (struct_block)
+    (statement_block)
   )
 )
 
@@ -32,7 +32,7 @@ record MyRecord {
 
 (program
   (record_declaration (identifier)
-    (struct_block
+    (statement_block
       (field_declaration
         (primitive_type)
         (identifier)
@@ -84,7 +84,7 @@ record MyRecord {
 
 (program
   (record_declaration (identifier)
-    (struct_block
+    (statement_block
       (field_declaration
         (primitive_type)
         (default_value_expression
@@ -148,7 +148,7 @@ record MyRecord {
 
 (program
   (record_declaration (identifier)
-    (struct_block
+    (statement_block
       (field_declaration
         (logical_type
           (known_logical_type)
@@ -214,7 +214,7 @@ record MyRecord {
 
 (program
   (record_declaration (identifier)
-    (struct_block
+    (statement_block
       (field_declaration
         (logical_type
           (identifier)
@@ -251,7 +251,7 @@ record Job {
 
 (program
   (record_declaration (identifier)
-    (struct_block
+    (statement_block
       (field_declaration
         (anotation_statement
           (anotation_identifier)
@@ -280,7 +280,7 @@ record Card {
 
 (program
   (record_declaration (identifier)
-    (struct_block
+    (statement_block
       (field_declaration
         (logical_type
           (identifier)

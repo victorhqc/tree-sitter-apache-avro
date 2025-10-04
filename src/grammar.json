@@ -7,10 +7,10 @@
       "type": "REPEAT",
       "content": {
         "type": "SYMBOL",
-        "name": "_declaration"
+        "name": "_all_declarations"
       }
     },
-    "_declaration": {
+    "_all_declarations": {
       "type": "CHOICE",
       "members": [
         {
@@ -39,7 +39,32 @@
         },
         {
           "type": "SYMBOL",
-          "name": "field_declaration"
+          "name": "rpc_message_declaration"
+        }
+      ]
+    },
+    "_protocol_declarations": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "import_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "enum_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "fixed_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "record_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "error_declaration"
         },
         {
           "type": "SYMBOL",
@@ -48,95 +73,63 @@
       ]
     },
     "protocol_declaration": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "PREC",
-          "value": 10,
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "protocol"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "identifier"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "protocol_block"
-              }
-            ]
-          }
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "REPEAT",
-              "content": {
-                "type": "SYMBOL",
-                "name": "anotation_statement"
-              }
-            },
-            {
-              "type": "PREC",
-              "value": 10,
-              "content": {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "protocol"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "identifier"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "protocol_block"
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      ]
-    },
-    "anotation_statement": {
       "type": "PREC",
       "value": 9,
       "content": {
         "type": "SEQ",
         "members": [
           {
-            "type": "SYMBOL",
-            "name": "anotation_identifier"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "anotation_statement"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "STRING",
+            "value": "protocol"
           },
           {
             "type": "SYMBOL",
-            "name": "anotation_arguments"
+            "name": "identifier"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "protocol_block"
           }
         ]
       }
     },
-    "anotation_arguments": {
+    "protocol_block": {
       "type": "SEQ",
       "members": [
         {
           "type": "STRING",
-          "value": "("
+          "value": "{"
         },
         {
-          "type": "SYMBOL",
-          "name": "literal_type"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_protocol_declarations"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "STRING",
-          "value": ")"
+          "value": "}"
         }
       ]
     },
@@ -193,6 +186,18 @@
         "type": "SEQ",
         "members": [
           {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "anotation_statement"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
             "type": "STRING",
             "value": "record"
           },
@@ -202,7 +207,7 @@
           },
           {
             "type": "SYMBOL",
-            "name": "struct_block"
+            "name": "statement_block"
           }
         ]
       }
@@ -223,7 +228,7 @@
           },
           {
             "type": "SYMBOL",
-            "name": "struct_block"
+            "name": "statement_block"
           }
         ]
       }
@@ -260,63 +265,6 @@
           }
         ]
       }
-    },
-    "protocol_block": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "{"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "REPEAT",
-              "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "enum_declaration"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "import_declaration"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "fixed_declaration"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "record_declaration"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "error_declaration"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "field_declaration"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "rpc_message_declaration"
-                  }
-                ]
-              }
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "STRING",
-          "value": "}"
-        }
-      ]
     },
     "enum_block": {
       "type": "SEQ",
@@ -363,7 +311,7 @@
         }
       ]
     },
-    "struct_block": {
+    "statement_block": {
       "type": "SEQ",
       "members": [
         {
@@ -419,7 +367,7 @@
     },
     "call_expression": {
       "type": "PREC",
-      "value": 6,
+      "value": 5,
       "content": {
         "type": "SEQ",
         "members": [
@@ -681,6 +629,107 @@
     "oneway": {
       "type": "STRING",
       "value": "oneway"
+    },
+    "anotation_statement": {
+      "type": "PREC",
+      "value": 8,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "anotation_identifier"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "anotation_arguments"
+          }
+        ]
+      }
+    },
+    "anotation_arguments": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "literal_type"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "["
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "SYMBOL",
+                              "name": "literal_type"
+                            },
+                            {
+                              "type": "BLANK"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "REPEAT",
+                          "content": {
+                            "type": "SEQ",
+                            "members": [
+                              {
+                                "type": "STRING",
+                                "value": ","
+                              },
+                              {
+                                "type": "CHOICE",
+                                "members": [
+                                  {
+                                    "type": "SYMBOL",
+                                    "name": "literal_type"
+                                  },
+                                  {
+                                    "type": "BLANK"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "STRING",
+                  "value": "]"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
     },
     "_possible_types": {
       "type": "CHOICE",
@@ -1506,10 +1555,6 @@
     }
   ],
   "conflicts": [
-    [
-      "protocol_declaration",
-      "_anotated_type"
-    ],
     [
       "_anotated_type",
       "nullable"

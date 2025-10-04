@@ -2,16 +2,22 @@
 Union
 ========================
 
-string? optionalString;
+record MyProtocol {
+  string? optionalString;
+}
 
 ---
 
 (program
-  (field_declaration
-    (nullable
-      (primitive_type)
+  (record_declaration (identifier)
+    (statement_block
+      (field_declaration
+        (nullable
+          (primitive_type)
+        )
+        (identifier)
+      )
     )
-    (identifier)
   )
 )
 
@@ -28,7 +34,7 @@ record RecordWithUnion {
 (program
   (record_declaration
     (identifier)
-    (struct_block
+    (statement_block
       (field_declaration
         (nullable
           (primitive_type)
