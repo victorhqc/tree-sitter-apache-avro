@@ -6,10 +6,7 @@
       "camelcase": "ApacheAvro",
       "title": "Apache Avro",
       "scope": "source.apache_avro",
-      "file-types": [
-        "avdl",
-        "avsc"
-      ],
+      "file-types": ["avdl"],
       "injection-regex": "^apache_avro$",
       "class-name": "TreeSitterApacheAvro"
     }
@@ -17,7 +14,7 @@
   "metadata": {
     "version": "0.1.0",
     "license": "MIT",
-    "description": "Unofficial Apache Avro Language Parser, it includes IDL and AVSC",
+    "description": "Unofficial Apache Avro Language Parser for the IDL Language",
     "authors": [
       {
         "name": "Victor Quiroz",

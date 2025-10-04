@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.13)
 
 project(tree-sitter-apache-avro
         VERSION "0.1.0"
-        DESCRIPTION "Unofficial Apache Avro Language Parser, it includes IDL and AVSC"
+        DESCRIPTION "Unofficial Apache Avro Language Parser for the IDL Language"
         HOMEPAGE_URL "https://github.com/victorhqc/tree-sitter-apache-avro"
         LANGUAGES C)
 

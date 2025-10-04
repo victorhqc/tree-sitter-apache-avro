@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "tree-sitter-apache-avro"
-description = "Unofficial Apache Avro Language Parser, it includes IDL and AVSC"
+description = "Unofficial Apache Avro Language Parser for the IDL Language"
 version = "0.1.0"
 keywords = ["incremental", "parsing", "tree-sitter", "apache-avro"]
 classifiers = [

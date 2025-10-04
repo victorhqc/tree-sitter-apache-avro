@@ -1,5 +1,5 @@
 /**
- * @file Unofficial Apache Avro Language Parser, it includes IDL and AVSC
+ * @file Unofficial Apache Avro Language Parser for the IDL Language
  * @author Victor Quiroz <git@victorhqc.com>
  * @license MIT
  */

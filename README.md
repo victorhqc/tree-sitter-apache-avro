@@ -4,10 +4,9 @@
 
 **This is a WIP** Project, not ready for general use :)
 
-This is an **unofficial** Apache Avro (.avsc) and IDL (.avdl) based on the
+This is an **unofficial** Apache Avro IDL (.avdl) based on the
 official specs:
 
-- [avsc](https://avro.apache.org/docs/1.11.1/specification/)
 - [avdl](https://avro.apache.org/docs/1.11.1/idl-language/)
 
 If you notice any bug or problem, please submit an issue or make a pull request.
