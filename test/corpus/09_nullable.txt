@@ -1,0 +1,47 @@
+========================
+Union
+========================
+
+string? optionalString;
+
+---
+
+(program
+  (field_declaration
+    (nullable
+      (primitive_type)
+    )
+    (identifier)
+  )
+)
+
+========================
+Union With Default Value
+========================
+
+record RecordWithUnion {
+  string? optionalString2 = null;
+}
+
+---
+
+(program
+  (record_declaration
+    (identifier)
+    (struct_block
+      (field_declaration
+        (nullable
+          (primitive_type)
+        )
+        (default_value_expression
+          (identifier)
+          (value
+            (literal_type
+              (null)
+            )
+          )
+        )
+      )
+    )
+  )
+)
