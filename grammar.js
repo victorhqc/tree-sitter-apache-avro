@@ -17,7 +17,6 @@ const PREC = {
   UNION: 7,
   ANOTATION: 8,
   MEMBER: 9,
-  PROTOCOL: 10,
 };
 
 module.exports = grammar({
