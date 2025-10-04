@@ -413,12 +413,12 @@
           },
           {
             "type": "SYMBOL",
-            "name": "arguments"
+            "name": "argument_list"
           }
         ]
       }
     },
-    "arguments": {
+    "argument_list": {
       "type": "SEQ",
       "members": [
         {
@@ -708,7 +708,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "arguments"
+          "name": "argument_list"
         }
       ]
     },
@@ -804,13 +804,13 @@
         "members": [
           {
             "type": "PATTERN",
-            "value": "[^\\x00-\\x1F\\s\\p{Zs}0-9:;`\"'@#.,|^&<=>+\\-*/\\\\%?!~()\\[\\]{}\\uFEFF\\u2060\\u200B\\u2028\\u2029]|\\\\u[0-9a-fA-F]{4}|\\\\u\\{[0-9a-fA-F]+\\}"
+            "value": "[^\\x00-\\x1F\\s\\p{Zs}0-9:;\"'@#.,|^&<=>+\\-*/\\\\%?!~()\\[\\]{}\\uFEFF\\u2060\\u200B\\u2028\\u2029]|\\\\u[0-9a-fA-F]{4}|\\\\u\\{[0-9a-fA-F]+\\}"
           },
           {
             "type": "REPEAT",
             "content": {
               "type": "PATTERN",
-              "value": "[^\\x00-\\x1F\\s\\p{Zs}:;`\"'@#.,|^&<=>+\\-*/\\\\%?!~()\\[\\]{}\\uFEFF\\u2060\\u200B\\u2028\\u2029]|\\\\u[0-9a-fA-F]{4}|\\\\u\\{[0-9a-fA-F]+\\}"
+              "value": "[^\\x00-\\x1F\\s\\p{Zs}:;\"'@#.,|^&<=>+\\-*/\\\\%?!~()\\[\\]{}\\uFEFF\\u2060\\u200B\\u2028\\u2029]|\\\\u[0-9a-fA-F]{4}|\\\\u\\{[0-9a-fA-F]+\\}"
             }
           }
         ]
@@ -941,7 +941,7 @@
               "members": [
                 {
                   "type": "SYMBOL",
-                  "name": "arguments"
+                  "name": "argument_list"
                 },
                 {
                   "type": "BLANK"

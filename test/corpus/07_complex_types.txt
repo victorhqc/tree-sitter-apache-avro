@@ -32,7 +32,7 @@ record MyRecord {
         (array
           (logical_type
             (known_logical_type
-              (arguments
+              (argument_list
                 (literal_type
                   (number)
                 )

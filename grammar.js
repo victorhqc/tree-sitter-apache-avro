@@ -99,9 +99,9 @@ module.exports = grammar({
     enumeral: ($) => alias($.identifier, "enumeral"),
 
     call_expression: ($) =>
-      prec(PREC.CALL, seq($._constructable_expression, $.arguments)),
+      prec(PREC.CALL, seq($._constructable_expression, $.argument_list)),
 
-    arguments: ($) => seq("(", commaSep(optional($._expression)), ")"),
+    argument_list: ($) => seq("(", commaSep(optional($._expression)), ")"),
 
     field_declaration: ($) =>
       seq(
@@ -138,7 +138,7 @@ module.exports = grammar({
         $.nullable,
       ),
 
-    logical_annotation: ($) => seq("@", $.identifier, $.arguments),
+    logical_annotation: ($) => seq("@", $.identifier, $.argument_list),
 
     assignment_expression: ($) =>
       prec.right(
@@ -163,10 +163,10 @@ module.exports = grammar({
 
     identifier: (_) => {
       const alpha =
-        /[^\x00-\x1F\s\p{Zs}0-9:;`"'@#.,|^&<=>+\-*/\\%?!~()\[\]{}\uFEFF\u2060\u200B\u2028\u2029]|\\u[0-9a-fA-F]{4}|\\u\{[0-9a-fA-F]+\}/;
+        /[^\x00-\x1F\s\p{Zs}0-9:;"'@#.,|^&<=>+\-*/\\%?!~()\[\]{}\uFEFF\u2060\u200B\u2028\u2029]|\\u[0-9a-fA-F]{4}|\\u\{[0-9a-fA-F]+\}/;
 
       const alphanumeric =
-        /[^\x00-\x1F\s\p{Zs}:;`"'@#.,|^&<=>+\-*/\\%?!~()\[\]{}\uFEFF\u2060\u200B\u2028\u2029]|\\u[0-9a-fA-F]{4}|\\u\{[0-9a-fA-F]+\}/;
+        /[^\x00-\x1F\s\p{Zs}:;"'@#.,|^&<=>+\-*/\\%?!~()\[\]{}\uFEFF\u2060\u200B\u2028\u2029]|\\u[0-9a-fA-F]{4}|\\u\{[0-9a-fA-F]+\}/;
       return token(seq(alpha, repeat(alphanumeric)));
     },
 
@@ -183,7 +183,7 @@ module.exports = grammar({
 
     known_logical_type: ($) =>
       choice(
-        seq("decimal", optional($.arguments)),
+        seq("decimal", optional($.argument_list)),
         "date",
         "time_ms",
         "timestamp_ms",

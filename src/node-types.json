@@ -1,6 +1,6 @@
 [
   {
-    "type": "arguments",
+    "type": "argument_list",
     "named": true,
     "fields": {},
     "children": {
@@ -108,7 +108,7 @@
       "required": true,
       "types": [
         {
-          "type": "arguments",
+          "type": "argument_list",
           "named": true
         },
         {
@@ -308,7 +308,7 @@
       "required": false,
       "types": [
         {
-          "type": "arguments",
+          "type": "argument_list",
           "named": true
         }
       ]
@@ -354,7 +354,7 @@
       "required": true,
       "types": [
         {
-          "type": "arguments",
+          "type": "argument_list",
           "named": true
         },
         {

@@ -49,7 +49,7 @@ protocol MyAmazingNamespace {
       (fixed_declaration
         (call_expression
           (identifier)
-          (arguments
+          (argument_list
             (literal_type
               (number)
             )

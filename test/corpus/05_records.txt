@@ -164,7 +164,7 @@ record MyRecord {
       (field_declaration
         (logical_type
           (known_logical_type
-            (arguments
+            (argument_list
               (literal_type
                 (number)
               )
@@ -225,7 +225,7 @@ record MyRecord {
         (logical_type
           (call_expression
             (identifier)
-            (arguments
+            (argument_list
               (literal_type
                 (string)
               )
@@ -255,7 +255,7 @@ record Job {
       (field_declaration
         (logical_annotation
           (identifier)
-          (arguments
+          (argument_list
             (literal_type
               (string)
             )

@@ -11,7 +11,7 @@ fixed SHA256(32);
   (fixed_declaration
     (call_expression
       (identifier)
-      (arguments
+      (argument_list
         (literal_type
           (number)
         )
@@ -21,7 +21,7 @@ fixed SHA256(32);
   (fixed_declaration
     (call_expression
       (identifier)
-      (arguments
+      (argument_list
         (literal_type
           (number)
         )
