@@ -22,7 +22,10 @@ const PREC = {
 module.exports = grammar({
   name: "apache_avro",
 
-  // conflicts: ($) => [[$.protocol_block, $.field_declaration]],
+  conflicts: ($) => [
+    [$.protocol_declaration, $._anotated_type],
+    [$._anotated_type, $.nullable],
+  ],
 
   word: ($) => $.identifier,
 
@@ -47,12 +50,15 @@ module.exports = grammar({
       choice(
         prec(PREC.PROTOCOL, seq("protocol", $.identifier, $.protocol_block)),
         seq(
-          $.namespace,
+          repeat($.anotation_statement),
           prec(PREC.PROTOCOL, seq("protocol", $.identifier, $.protocol_block)),
         ),
       ),
 
-    namespace: ($) => prec(PREC.MEMBER, seq("@namespace(", $.string, ")")),
+    anotation_statement: ($) =>
+      prec(PREC.MEMBER, seq($.anotation_identifier, $.anotation_arguments)),
+
+    anotation_arguments: ($) => seq("(", $.literal_type, ")"),
 
     import_declaration: ($) =>
       prec(PREC.MEMBER, seq("import", $.identifier, $.string, ";")),
@@ -107,8 +113,8 @@ module.exports = grammar({
 
     field_declaration: ($) =>
       seq(
-        optional($.logical_annotation),
         $._possible_types,
+        optional($.anotation_statement),
         choice($.identifier, $.default_value_expression),
         ";",
       ),
@@ -138,9 +144,10 @@ module.exports = grammar({
         $.map,
         $.union,
         $.nullable,
+        $._anotated_type,
       ),
 
-    logical_annotation: ($) => seq("@", $.identifier, $.argument_list),
+    _anotated_type: ($) => seq($.anotation_statement, $._possible_types),
 
     assignment_expression: ($) =>
       prec.right(
@@ -162,6 +169,15 @@ module.exports = grammar({
       ),
 
     _constructable_expression: ($) => choice($.literal_type, $.identifier),
+
+    anotation_identifier: (_) => {
+      const alpha =
+        /[^\x00-\x1F\s\p{Zs}0-9:;"'@#.,|^&<=>+\*/\\%?!~()\[\]{}\uFEFF\u2060\u200B\u2028\u2029]|\\u[0-9a-fA-F]{4}|\\u\{[0-9a-fA-F]+\}/;
+
+      const alphanumeric =
+        /[^\x00-\x1F\s\p{Zs}:;"'@#.,|^&<=>+\*/\\%?!~()\[\]{}\uFEFF\u2060\u200B\u2028\u2029]|\\u[0-9a-fA-F]{4}|\\u\{[0-9a-fA-F]+\}/;
+      return token(seq("@", alpha, repeat(alphanumeric)));
+    },
 
     identifier: (_) => {
       const alpha =

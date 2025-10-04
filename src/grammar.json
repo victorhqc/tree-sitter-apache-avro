@@ -75,8 +75,11 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "namespace"
+              "type": "REPEAT",
+              "content": {
+                "type": "SYMBOL",
+                "name": "anotation_statement"
+              }
             },
             {
               "type": "PREC",
@@ -103,26 +106,39 @@
         }
       ]
     },
-    "namespace": {
+    "anotation_statement": {
       "type": "PREC",
       "value": 9,
       "content": {
         "type": "SEQ",
         "members": [
           {
-            "type": "STRING",
-            "value": "@namespace("
+            "type": "SYMBOL",
+            "name": "anotation_identifier"
           },
           {
             "type": "SYMBOL",
-            "name": "string"
-          },
-          {
-            "type": "STRING",
-            "value": ")"
+            "name": "anotation_arguments"
           }
         ]
       }
+    },
+    "anotation_arguments": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "literal_type"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
     },
     "import_declaration": {
       "type": "PREC",
@@ -484,20 +500,20 @@
       "type": "SEQ",
       "members": [
         {
+          "type": "SYMBOL",
+          "name": "_possible_types"
+        },
+        {
           "type": "CHOICE",
           "members": [
             {
               "type": "SYMBOL",
-              "name": "logical_annotation"
+              "name": "anotation_statement"
             },
             {
               "type": "BLANK"
             }
           ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_possible_types"
         },
         {
           "type": "CHOICE",
@@ -692,23 +708,23 @@
         {
           "type": "SYMBOL",
           "name": "nullable"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_anotated_type"
         }
       ]
     },
-    "logical_annotation": {
+    "_anotated_type": {
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "@"
+          "type": "SYMBOL",
+          "name": "anotation_statement"
         },
         {
           "type": "SYMBOL",
-          "name": "identifier"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "argument_list"
+          "name": "_possible_types"
         }
       ]
     },
@@ -796,6 +812,29 @@
           "name": "identifier"
         }
       ]
+    },
+    "anotation_identifier": {
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "@"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[^\\x00-\\x1F\\s\\p{Zs}0-9:;\"'@#.,|^&<=>+\\*/\\\\%?!~()\\[\\]{}\\uFEFF\\u2060\\u200B\\u2028\\u2029]|\\\\u[0-9a-fA-F]{4}|\\\\u\\{[0-9a-fA-F]+\\}"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "PATTERN",
+              "value": "[^\\x00-\\x1F\\s\\p{Zs}:;\"'@#.,|^&<=>+\\*/\\\\%?!~()\\[\\]{}\\uFEFF\\u2060\\u200B\\u2028\\u2029]|\\\\u[0-9a-fA-F]{4}|\\\\u\\{[0-9a-fA-F]+\\}"
+            }
+          }
+        ]
+      }
     },
     "identifier": {
       "type": "TOKEN",
@@ -1466,7 +1505,16 @@
       "value": "[\\s\\p{Zs}\\uFEFF\\u2028\\u2029\\u2060\\u200B]"
     }
   ],
-  "conflicts": [],
+  "conflicts": [
+    [
+      "protocol_declaration",
+      "_anotated_type"
+    ],
+    [
+      "_anotated_type",
+      "nullable"
+    ]
+  ],
   "precedences": [],
   "externals": [],
   "inline": [],

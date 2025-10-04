@@ -32,8 +32,13 @@ protocol MyAmazingNamespace {
     (string)
   )
   (protocol_declaration
-    (namespace
-      (string)
+    (anotation_statement
+      (anotation_identifier)
+      (anotation_arguments
+        (literal_type
+          (string)
+        )
+      )
     )
     (identifier)
     (protocol_block

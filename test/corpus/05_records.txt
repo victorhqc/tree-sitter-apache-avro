@@ -253,9 +253,9 @@ record Job {
   (record_declaration (identifier)
     (struct_block
       (field_declaration
-        (logical_annotation
-          (identifier)
-          (argument_list
+        (anotation_statement
+          (anotation_identifier)
+          (anotation_arguments
             (literal_type
               (string)
             )
