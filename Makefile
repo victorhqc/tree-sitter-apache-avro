@@ -4,7 +4,7 @@ endif
 
 LANGUAGE_NAME := tree-sitter-apache-avro
 HOMEPAGE_URL := https://github.com/victorhqc/tree-sitter-apache-avro
-VERSION := 0.1.0
+VERSION := 0.1.1
 
 # repository
 SRC_DIR := src
