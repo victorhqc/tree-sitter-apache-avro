@@ -10,7 +10,7 @@
 const PREC = {
   ASSIGN: 0,
   COMMENT: 1,
-  STRING: 2, // In a string, prefer string characters over comments
+  STRING: 2,
 
   CALL: 5,
   FIELD: 6,
