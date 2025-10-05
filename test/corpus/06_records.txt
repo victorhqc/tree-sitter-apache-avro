@@ -34,36 +34,36 @@ record MyRecord {
   (record_declaration (identifier)
     (statement_block
       (field_declaration
-        (primitive_type)
-        (identifier)
+        type: (primitive_type)
+        name: (identifier)
       )
       (field_declaration
-        (primitive_type)
-        (identifier)
+        type: (primitive_type)
+        name: (identifier)
       )
       (field_declaration
-        (primitive_type)
-        (identifier)
+        type: (primitive_type)
+        name: (identifier)
       )
       (field_declaration
-        (primitive_type)
-        (identifier)
+        type: (primitive_type)
+        name: (identifier)
       )
       (field_declaration
-        (primitive_type)
-        (identifier)
+        type: (primitive_type)
+        name: (identifier)
       )
       (field_declaration
-        (primitive_type)
-        (identifier)
+        type: (primitive_type)
+        name: (identifier)
       )
       (field_declaration
-        (primitive_type)
-        (identifier)
+        type: (primitive_type)
+        name: (identifier)
       )
       (field_declaration
-        (primitive_type)
-        (identifier)
+        type: (primitive_type)
+        name: (identifier)
       )
     )
   )
@@ -86,7 +86,7 @@ record MyRecord {
   (record_declaration (identifier)
     (statement_block
       (field_declaration
-        (primitive_type)
+        type: (primitive_type)
         (default_value_expression
           (identifier)
           (value
@@ -97,7 +97,7 @@ record MyRecord {
         )
       )
       (field_declaration
-        (primitive_type)
+        type: (primitive_type)
         (default_value_expression
           (identifier)
           (value
@@ -108,7 +108,7 @@ record MyRecord {
         )
       )
       (field_declaration
-        (primitive_type)
+        type: (primitive_type)
         (default_value_expression
           (identifier)
           (value
@@ -119,7 +119,7 @@ record MyRecord {
         )
       )
       (field_declaration
-        (primitive_type)
+        type: (primitive_type)
         (default_value_expression
           (identifier)
           (value

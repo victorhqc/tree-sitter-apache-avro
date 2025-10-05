@@ -74,7 +74,7 @@ module.exports = grammar({
         seq(
           optional($.anotation_statement),
           "protocol",
-          $.identifier,
+          field("name", $.identifier),
           $.protocol_block,
         ),
       ),
@@ -97,13 +97,16 @@ module.exports = grammar({
         seq(
           optional($.anotation_statement),
           "record",
-          $.identifier,
+          field("name", $.identifier),
           $.statement_block,
         ),
       ),
 
     error_declaration: ($) =>
-      prec(PREC.MEMBER, seq("error", $.identifier, $.statement_block)),
+      prec(
+        PREC.MEMBER,
+        seq("error", field("name", $.identifier), $.statement_block),
+      ),
 
     enum_declaration: ($) =>
       prec(
@@ -111,7 +114,7 @@ module.exports = grammar({
         seq(
           optional($.anotation_statement),
           "enum",
-          $.identifier,
+          field("name", $.identifier),
           $.enum_block,
           optional($.default_enumeral),
         ),
@@ -133,16 +136,16 @@ module.exports = grammar({
 
     field_declaration: ($) =>
       seq(
-        $._possible_types,
+        field("type", $._possible_types),
         optional($.anotation_statement),
-        choice($.identifier, $.default_value_expression),
+        choice(field("name", $.identifier), $.default_value_expression),
         ";",
       ),
 
     rpc_message_declaration: ($) =>
       seq(
         $.return_value,
-        seq($.identifier, $.parameter_list),
+        seq(field("name", $.identifier), $.parameter_list),
         optional(choice($.throw_statement, $.oneway)),
         ";",
       ),
@@ -152,7 +155,10 @@ module.exports = grammar({
     parameter_list: ($) => seq("(", commaSep(optional($.parameter)), ")"),
 
     parameter: ($) =>
-      seq($._possible_types, choice($.identifier, $.default_value_expression)),
+      seq(
+        field("type", $._possible_types),
+        field("name", choice($.identifier, $.default_value_expression)),
+      ),
 
     throw_statement: ($) => seq("throws", $.identifier),
 
@@ -162,7 +168,10 @@ module.exports = grammar({
       prec(PREC.STATEMENT, seq("namespace", $.namespace_identifier, ";")),
 
     anotation_statement: ($) =>
-      prec(PREC.STATEMENT, seq($.anotation_identifier, $.anotation_arguments)),
+      prec(
+        PREC.STATEMENT,
+        seq(field("name", $.anotation_identifier), $.anotation_arguments),
+      ),
 
     anotation_arguments: ($) =>
       seq(
