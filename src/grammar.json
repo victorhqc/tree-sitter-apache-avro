@@ -15,6 +15,10 @@
       "members": [
         {
           "type": "SYMBOL",
+          "name": "schema_declaration"
+        },
+        {
+          "type": "SYMBOL",
           "name": "protocol_declaration"
         },
         {
@@ -71,6 +75,48 @@
           "name": "rpc_message_declaration"
         }
       ]
+    },
+    "schema_declaration": {
+      "type": "PREC",
+      "value": 9,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "namespace_statement"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "STRING",
+            "value": "schema"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "primitive_type"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              }
+            ]
+          },
+          {
+            "type": "STRING",
+            "value": ";"
+          }
+        ]
+      }
     },
     "protocol_declaration": {
       "type": "PREC",
@@ -630,6 +676,27 @@
       "type": "STRING",
       "value": "oneway"
     },
+    "namespace_statement": {
+      "type": "PREC",
+      "value": 8,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "namespace"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "namespace_identifier"
+          },
+          {
+            "type": "STRING",
+            "value": ";"
+          }
+        ]
+      }
+    },
     "anotation_statement": {
       "type": "PREC",
       "value": 8,
@@ -861,6 +928,25 @@
           "name": "identifier"
         }
       ]
+    },
+    "namespace_identifier": {
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": "[^\\x00-\\x1F\\s\\p{Zs}0-9:;\"'@#,|^&<=>+\\*/\\\\%?!~()\\[\\]{}\\uFEFF\\u2060\\u200B\\u2028\\u2029]|\\\\u[0-9a-fA-F]{4}|\\\\u\\{[0-9a-fA-F]+\\}"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "PATTERN",
+              "value": "[^\\x00-\\x1F\\s\\p{Zs}:;\"'@#,|^&<=>+\\*/\\\\%?!~()\\[\\]{}\\uFEFF\\u2060\\u200B\\u2028\\u2029]|\\\\u[0-9a-fA-F]{4}|\\\\u\\{[0-9a-fA-F]+\\}"
+            }
+          }
+        ]
+      }
     },
     "anotation_identifier": {
       "type": "TOKEN",

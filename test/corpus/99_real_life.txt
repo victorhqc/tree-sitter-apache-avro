@@ -2,26 +2,31 @@
 Real Life Example
 ========================
 
-import idl "foo.avdl";
+/*
+ * Header with license information.
+ */
 
-@namespace("my.amazing_namespace.v1")
-protocol MyAmazingNamespace {
-  enum Shapes {
-    SQUARE, TRIANGLE, CIRCLE, OVAL
+/**
+ * An example protocol in Avro IDL
+ */
+@namespace("org.apache.avro.test")
+protocol Simple {
+  // Import the example file above
+  import idl "schema.avdl";
+
+  /** Errors are records that can be thrown from a method */
+  error TestError {
+    string message;
   }
 
-  fixed MD5(16);
-
-  record Employee {
-    string name;
-    boolean active;
-    long salary;
-  }
-
-  error Kaboom {
-    string explanation;
-    int result_code = -1;
-  }
+  string hello(string greeting);
+  /** Return what was given. Demonstrates the use of backticks to name types/fields/messages/parameters after keywords */
+  TestRecord echo(TestRecord `record`);
+  int add(int arg1, int arg2);
+  bytes echoBytes(bytes data);
+  void `error`() throws TestError;
+  // The oneway keyword forces the method to return null.
+  void ping() oneway;
 }
 
 ---
@@ -62,7 +67,7 @@ protocol MyAmazingNamespace {
         )
       )
       (record_declaration (identifier)
-        (struct_block
+        (statement_block
           (field_declaration
             (primitive_type)
             (identifier)
@@ -79,7 +84,7 @@ protocol MyAmazingNamespace {
       )
 
       (error_declaration (identifier)
-        (struct_block
+        (statement_block
           (field_declaration
             (primitive_type)
             (identifier)

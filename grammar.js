@@ -15,7 +15,7 @@ const PREC = {
   CALL: 5,
   FIELD: 6,
   UNION: 7,
-  ANOTATION: 8,
+  STATEMENT: 8,
   MEMBER: 9,
 };
 
@@ -37,6 +37,7 @@ module.exports = grammar({
 
     _all_declarations: ($) =>
       choice(
+        $.schema_declaration,
         $.protocol_declaration,
         $.import_declaration,
         $.enum_declaration,
@@ -54,6 +55,17 @@ module.exports = grammar({
         $.record_declaration,
         $.error_declaration,
         $.rpc_message_declaration,
+      ),
+
+    schema_declaration: ($) =>
+      prec(
+        PREC.MEMBER,
+        seq(
+          optional($.namespace_statement),
+          "schema",
+          choice($.primitive_type, $.identifier),
+          ";",
+        ),
       ),
 
     protocol_declaration: ($) =>
@@ -136,8 +148,11 @@ module.exports = grammar({
 
     oneway: ($) => "oneway",
 
+    namespace_statement: ($) =>
+      prec(PREC.STATEMENT, seq("namespace", $.namespace_identifier, ";")),
+
     anotation_statement: ($) =>
-      prec(PREC.ANOTATION, seq($.anotation_identifier, $.anotation_arguments)),
+      prec(PREC.STATEMENT, seq($.anotation_identifier, $.anotation_arguments)),
 
     anotation_arguments: ($) =>
       seq(
@@ -182,6 +197,15 @@ module.exports = grammar({
       ),
 
     _constructable_expression: ($) => choice($.literal_type, $.identifier),
+
+    namespace_identifier: (_) => {
+      const alpha =
+        /[^\x00-\x1F\s\p{Zs}0-9:;"'@#,|^&<=>+\*/\\%?!~()\[\]{}\uFEFF\u2060\u200B\u2028\u2029]|\\u[0-9a-fA-F]{4}|\\u\{[0-9a-fA-F]+\}/;
+
+      const alphanumeric =
+        /[^\x00-\x1F\s\p{Zs}:;"'@#,|^&<=>+\*/\\%?!~()\[\]{}\uFEFF\u2060\u200B\u2028\u2029]|\\u[0-9a-fA-F]{4}|\\u\{[0-9a-fA-F]+\}/;
+      return token(seq(alpha, repeat(alphanumeric)));
+    },
 
     anotation_identifier: (_) => {
       const alpha =
