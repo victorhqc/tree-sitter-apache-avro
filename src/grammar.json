@@ -431,7 +431,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "enumeral"
+          "name": "identifier"
         },
         {
           "type": "STRING",
@@ -440,13 +440,8 @@
       ]
     },
     "enumeral": {
-      "type": "ALIAS",
-      "content": {
-        "type": "SYMBOL",
-        "name": "identifier"
-      },
-      "named": false,
-      "value": "enumeral"
+      "type": "SYMBOL",
+      "name": "identifier"
     },
     "call_expression": {
       "type": "PREC",

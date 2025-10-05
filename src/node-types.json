@@ -163,7 +163,7 @@
       "required": true,
       "types": [
         {
-          "type": "enumeral",
+          "type": "identifier",
           "named": true
         }
       ]
@@ -247,7 +247,17 @@
   {
     "type": "enumeral",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "error_declaration",
@@ -1057,10 +1067,6 @@
     "named": false
   },
   {
-    "type": "enumeral",
-    "named": false
-  },
-  {
     "type": "error",
     "named": false
   },
@@ -1134,11 +1140,11 @@
   },
   {
     "type": "string",
-    "named": false
+    "named": true
   },
   {
     "type": "string",
-    "named": true
+    "named": false
   },
   {
     "type": "throws",

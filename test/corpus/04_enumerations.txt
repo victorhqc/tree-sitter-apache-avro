@@ -11,10 +11,10 @@ enum Shapes {
   (enum_declaration
     (identifier)
     (enum_block
-        (enumeral)
-        (enumeral)
-        (enumeral)
-        (enumeral)
+        (enumeral (identifier))
+        (enumeral (identifier))
+        (enumeral (identifier))
+        (enumeral (identifier))
     )
   )
 )
@@ -32,13 +32,13 @@ enum Shapes {
   (enum_declaration
     (identifier)
     (enum_block
-        (enumeral)
-        (enumeral)
-        (enumeral)
-        (enumeral)
+        (enumeral (identifier))
+        (enumeral (identifier))
+        (enumeral (identifier))
+        (enumeral (identifier))
     )
     (default_enumeral
-        (enumeral)
+        (identifier)
     )
   )
 )

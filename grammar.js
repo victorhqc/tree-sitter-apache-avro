@@ -126,9 +126,9 @@ module.exports = grammar({
     statement_block: ($) =>
       seq("{", optional(repeat($.field_declaration)), "}"),
 
-    default_enumeral: ($) => seq("=", $.enumeral, ";"),
+    default_enumeral: ($) => seq("=", $.identifier, ";"),
 
-    enumeral: ($) => alias($.identifier, "enumeral"),
+    enumeral: ($) => $.identifier,
 
     call_expression: ($) => prec(PREC.CALL, seq($.identifier, $.argument_list)),
 

@@ -35,8 +35,11 @@
   (parameter name: (identifier))
   (default_value_expression left: (identifier))
   (throw_statement (identifier))
-  (enum_block (enumeral))
 ] @variable
+
+[
+  (enumeral (identifier))
+] @variant
 
 [
   (primitive_type)
@@ -61,7 +64,7 @@
 ] @constant.builtin
 
 [
-  (default_enumeral (enumeral))
+  (default_enumeral (identifier))
 ] @constant
 
 [
