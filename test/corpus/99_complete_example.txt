@@ -61,12 +61,12 @@ record TestRecord {
     )
     (identifier)
     (enum_block
-      (enumeral)
-      (enumeral) (comment)
-      (enumeral)
+      (enumeral (identifier))
+      (enumeral (identifier)) (comment)
+      (enumeral (identifier))
     )
     (default_enumeral
-      (enumeral)
+      (identifier)
     )
   )
   (comment)
