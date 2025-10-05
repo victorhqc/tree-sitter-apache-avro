@@ -112,8 +112,10 @@ record TestRecord {
       (comment)
       (field_declaration
         (union
-          (primitive_type)
-          (logical_type (identifier))
+          (union_block
+            (primitive_type)
+            (logical_type (identifier))
+          )
         )
         (comment)
         (anotation_statement
@@ -141,7 +143,9 @@ record TestRecord {
       )
       (field_declaration
         (array
-          (primitive_type)
+          (type_block
+            (primitive_type)
+          )
         )
         (identifier)
       )

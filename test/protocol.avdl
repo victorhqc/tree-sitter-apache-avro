@@ -15,6 +15,11 @@ protocol Simple {
     string message;
   }
 
+  error Kaboom {
+    string explanation;
+    int result_code = -1;
+  }
+
   string hello(string greeting);
   /** Return what was given. Demonstrates the use of backticks to name types/fields/messages/parameters after keywords */
   TestRecord echo(TestRecord `record`);

@@ -13,8 +13,10 @@ record Union {
     (statement_block
       (field_declaration
         (union
-          (primitive_type)
-          (primitive_type)
+          (union_block
+            (primitive_type)
+            (primitive_type)
+          )
         )
         (identifier)
       )
@@ -39,26 +41,32 @@ record RecordWithUnion {
     (statement_block
       (field_declaration
         (union
-          (primitive_type)
-          (primitive_type)
+          (union_block
+            (primitive_type)
+            (primitive_type)
+          )
         )
         (identifier)
       )
       (field_declaration
         (union
-          (logical_type
-            (known_logical_type
-              (argument_list
-                (literal_type
-                  (number)
-                )
-                (literal_type
-                  (number)
+          (union_block
+            (logical_type
+              (known_logical_type
+                (decimal
+                  (argument_list
+                    (literal_type
+                      (number)
+                    )
+                    (literal_type
+                      (number)
+                    )
+                  )
                 )
               )
             )
+            (primitive_type)
           )
-          (primitive_type)
         )
         (identifier)
       )
@@ -82,9 +90,13 @@ record RecordWithUnion {
     (statement_block
       (field_declaration
         (map
-          (union
-            (primitive_type)
-            (primitive_type)
+          (type_block
+            (union
+              (union_block
+                (primitive_type)
+                (primitive_type)
+              )
+            )
           )
         )
         (identifier)
@@ -109,9 +121,13 @@ record RecordWithUnion {
     (statement_block
       (field_declaration
         (array
-          (union
-            (primitive_type)
-            (primitive_type)
+          (type_block
+            (union
+              (union_block
+                (primitive_type)
+                (primitive_type)
+              )
+            )
           )
         )
         (identifier)

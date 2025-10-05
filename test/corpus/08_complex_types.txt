@@ -16,13 +16,7 @@ record MyRecord {
     (statement_block
       (field_declaration
         (array
-          (primitive_type)
-        )
-        (identifier)
-      )
-      (field_declaration
-        (array
-          (array
+          (type_block
             (primitive_type)
           )
         )
@@ -30,14 +24,30 @@ record MyRecord {
       )
       (field_declaration
         (array
-          (logical_type
-            (known_logical_type
-              (argument_list
-                (literal_type
-                  (number)
-                )
-                (literal_type
-                  (number)
+          (type_block
+            (array
+              (type_block
+                (primitive_type)
+              )
+            )
+          )
+        )
+        (identifier)
+      )
+      (field_declaration
+        (array
+          (type_block
+            (logical_type
+              (known_logical_type
+                (decimal
+                  (argument_list
+                    (literal_type
+                      (number)
+                    )
+                    (literal_type
+                      (number)
+                    )
+                  )
                 )
               )
             )
@@ -47,8 +57,10 @@ record MyRecord {
       )
       (field_declaration
         (array
-          (logical_type
-            (identifier)
+          (type_block
+            (logical_type
+              (identifier)
+            )
           )
         )
         (identifier)
@@ -76,21 +88,7 @@ record MyRecord {
     (statement_block
       (field_declaration
         (map
-          (primitive_type)
-        )
-        (identifier)
-      )
-      (field_declaration
-        (map
-          (logical_type
-            (identifier)
-          )
-        )
-        (identifier)
-      )
-      (field_declaration
-        (map
-          (array
+          (type_block
             (primitive_type)
           )
         )
@@ -98,16 +96,46 @@ record MyRecord {
       )
       (field_declaration
         (map
-          (map
-            (primitive_type)
+          (type_block
+            (logical_type
+              (identifier)
+            )
+          )
+        )
+        (identifier)
+      )
+      (field_declaration
+        (map
+          (type_block
+            (array
+              (type_block
+                (primitive_type)
+              )
+            )
+          )
+        )
+        (identifier)
+      )
+      (field_declaration
+        (map
+          (type_block
+            (map
+              (type_block
+                (primitive_type)
+              )
+            )
           )
         )
         (identifier)
       )
       (field_declaration
         (array
-          (map
-            (primitive_type)
+          (type_block
+            (map
+              (type_block
+                (primitive_type)
+              )
+            )
           )
         )
         (identifier)

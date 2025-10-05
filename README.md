@@ -42,3 +42,28 @@ To test the bindings you can also do the following
 tree-sitter parse ./test/protocol.avdl
 tree-sitter parse ./test/schema.avdl
 ```
+
+To check for highlights, run the following
+
+```sh
+tree-sitter highlight --check ./test/schema.avdl
+tree-sitter highlight --check ./test/protocol.avdl
+```
+
+Just make sure to include the local directory where you have this parser in the
+local tree-sitter configuration. For example, if I have this path under
+`Documents/Code/tree-sitter-apache-avro`  then the config should be
+
+```json
+{
+  "parser-directories": [
+    "/Users/my_user/github",
+    "/Users/my_user/src",
+    "/Users/my_user/source",
+    "/Users/my_user/projects",
+    "/Users/my_user/dev",
+    "/Users/my_user/git",
+    "/Users/my_user/Documents/Code"
+  ],
+}
+```
