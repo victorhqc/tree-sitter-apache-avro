@@ -1,7 +1,7 @@
 [package]
 name = "tree-sitter-apache-avro"
 description = "Unofficial Apache Avro Language Parser for the IDL Language"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Victor Quiroz <git@victorhqc.com>"]
 license = "MIT"
 readme = "README.md"

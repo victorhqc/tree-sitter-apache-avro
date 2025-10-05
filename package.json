@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-apache-avro",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Unofficial Apache Avro Language Parser for the IDL Language",
   "repository": "https://github.com/victorhqc/tree-sitter-apache-avro",
   "license": "MIT",
