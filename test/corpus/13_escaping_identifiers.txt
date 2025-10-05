@@ -8,7 +8,7 @@ void `error`();
 
 (program
   (rpc_message_declaration
-    (primitive_type)
+    (return_value (void))
     (identifier)
     (parameter_list)
   )

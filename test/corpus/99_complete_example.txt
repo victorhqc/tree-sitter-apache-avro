@@ -148,3 +148,137 @@ record TestRecord {
     )
   )
 )
+
+========================
+protocol.avdl
+========================
+
+/*
+ * Header with license information.
+ */
+
+/**
+ * An example protocol in Avro IDL
+ */
+@namespace("org.apache.avro.test")
+protocol Simple {
+  // Import the example file above
+  import idl "schema.avdl";
+
+  /** Errors are records that can be thrown from a method */
+  error TestError {
+    string message;
+  }
+
+  string hello(string greeting);
+  /** Return what was given. Demonstrates the use of backticks to name types/fields/messages/parameters after keywords */
+  TestRecord echo(TestRecord `record`);
+  int add(int arg1, int arg2);
+  bytes echoBytes(bytes data);
+  void `error`() throws TestError;
+  // The oneway keyword forces the method to return null.
+  void ping() oneway;
+}
+
+---
+
+(program
+  (comment)
+  (comment)
+  (protocol_declaration
+    (anotation_statement
+      (anotation_identifier)
+      (anotation_arguments
+        (literal_type (string))
+      )
+    )
+    (identifier)
+    (protocol_block
+      (comment)
+      (import_declaration
+        (identifier)
+        (literal_type (string))
+      )
+      (comment)
+      (error_declaration
+        (identifier)
+        (statement_block
+          (field_declaration
+            (primitive_type)
+            (identifier)
+          )
+        )
+      )
+      (rpc_message_declaration
+        (return_value
+          (primitive_type)
+        )
+        (identifier)
+        (parameter_list
+          (parameter
+            (primitive_type)
+            (identifier)
+          )
+        )
+      )
+      (comment)
+      (rpc_message_declaration
+        (return_value
+          (logical_type
+            (identifier)
+          )
+        )
+        (identifier)
+        (parameter_list
+          (parameter
+            (logical_type (identifier))
+            (identifier)
+          )
+        )
+      )
+      (rpc_message_declaration
+        (return_value
+          (primitive_type)
+        )
+        (identifier)
+        (parameter_list
+          (parameter
+            (primitive_type)
+            (identifier)
+          )
+          (parameter
+            (primitive_type)
+            (identifier)
+          )
+        )
+      )
+      (rpc_message_declaration
+        (return_value
+          (primitive_type)
+        )
+        (identifier)
+        (parameter_list
+          (parameter
+            (primitive_type)
+            (identifier)
+          )
+        )
+      )
+      (rpc_message_declaration
+        (return_value (void))
+        (identifier)
+        (parameter_list)
+        (throw_statement
+          (identifier)
+        )
+      )
+      (comment)
+      (rpc_message_declaration
+        (return_value (void))
+        (identifier)
+        (parameter_list)
+        (oneway)
+      )
+    )
+  )
+)

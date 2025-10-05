@@ -10,14 +10,14 @@ import schema "foo.avsc";
 (program
   (import_declaration
     (identifier)
-    (string)
+    (literal_type (string))
   )
   (import_declaration
     (identifier)
-    (string)
+    (literal_type (string))
   )
   (import_declaration
     (identifier)
-    (string)
+    (literal_type (string))
   )
 )

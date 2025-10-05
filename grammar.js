@@ -83,7 +83,7 @@ module.exports = grammar({
       seq("{", optional(repeat($._protocol_declarations)), "}"),
 
     import_declaration: ($) =>
-      prec(PREC.MEMBER, seq("import", $.identifier, $.string, ";")),
+      prec(PREC.MEMBER, seq("import", $.identifier, $.literal_type, ";")),
 
     fixed_declaration: ($) =>
       prec(
@@ -141,18 +141,20 @@ module.exports = grammar({
 
     rpc_message_declaration: ($) =>
       seq(
-        $._possible_types,
+        $.return_value,
         seq($.identifier, $.parameter_list),
-        optional(choice($.throw_declaration, $.oneway)),
+        optional(choice($.throw_statement, $.oneway)),
         ";",
       ),
+
+    return_value: ($) => choice($._possible_types, $.void),
 
     parameter_list: ($) => seq("(", commaSep(optional($.parameter)), ")"),
 
     parameter: ($) =>
       seq($._possible_types, choice($.identifier, $.default_value_expression)),
 
-    throw_declaration: ($) => seq("throws", $.identifier),
+    throw_statement: ($) => seq("throws", $.identifier),
 
     oneway: ($) => "oneway",
 
@@ -264,8 +266,9 @@ module.exports = grammar({
         "double",
         "null",
         "bytes",
-        "void",
       ),
+
+    void: (_) => "void",
 
     literal_type: ($) => choice($.number, $.string, $.true, $.false, $.null),
 

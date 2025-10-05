@@ -335,7 +335,7 @@
           "named": true
         },
         {
-          "type": "string",
+          "type": "literal_type",
           "named": true
         }
       ]
@@ -701,7 +701,7 @@
     }
   },
   {
-    "type": "rpc_message_declaration",
+    "type": "return_value",
     "named": true,
     "fields": {},
     "children": {
@@ -717,10 +717,6 @@
           "named": true
         },
         {
-          "type": "identifier",
-          "named": true
-        },
-        {
           "type": "logical_type",
           "named": true
         },
@@ -733,6 +729,33 @@
           "named": true
         },
         {
+          "type": "primitive_type",
+          "named": true
+        },
+        {
+          "type": "union",
+          "named": true
+        },
+        {
+          "type": "void",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "rpc_message_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
           "type": "oneway",
           "named": true
         },
@@ -741,15 +764,11 @@
           "named": true
         },
         {
-          "type": "primitive_type",
+          "type": "return_value",
           "named": true
         },
         {
-          "type": "throw_declaration",
-          "named": true
-        },
-        {
-          "type": "union",
+          "type": "throw_statement",
           "named": true
         }
       ]
@@ -794,7 +813,7 @@
     }
   },
   {
-    "type": "throw_declaration",
+    "type": "throw_statement",
     "named": true,
     "fields": {},
     "children": {
@@ -1017,11 +1036,11 @@
   },
   {
     "type": "string",
-    "named": false
+    "named": true
   },
   {
     "type": "string",
-    "named": true
+    "named": false
   },
   {
     "type": "throws",
@@ -1049,7 +1068,7 @@
   },
   {
     "type": "void",
-    "named": false
+    "named": true
   },
   {
     "type": "{",
