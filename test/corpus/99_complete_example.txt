@@ -1,0 +1,150 @@
+========================
+schema.avdl
+========================
+
+/*
+ * Header with license information.
+ */
+// Optional default namespace (if absent, the default namespace is the null namespace).
+namespace org.apache.avro.test;
+// Optional main schema definition; if used, the IDL file is equivalent to a .avsc file.
+schema TestRecord;
+
+/** Documentation for the enum type Kind */
+@aliases(["org.foo.KindOf"])
+enum Kind {
+  FOO,
+  BAR, // the bar enum value
+  BAZ
+} = FOO; // For schema evolution purposes, unmatched values do not throw an error, but are resolved to FOO.
+
+/** MD5 hash; good enough to avoid most collisions, and smaller than (for example) SHA256. */
+fixed MD5(16);
+
+record TestRecord {
+  /** Record name; has no intrinsic order */
+  string @order("ignore") name;
+
+  Kind @order("descending") kind;
+
+  MD5 hash;
+
+  /*
+  Note that 'null' is the first union type. Just like .avsc / .avpr files, the default value must be of the first union type.
+  */
+  union { null, MD5 } /** Optional field */ @aliases(["hash"]) nullableHash = null;
+  // Shorthand syntax; the null in this union is placed based on the default value (or first is there's no default).
+  MD5? anotherNullableHash = null;
+
+  array<long> arrayOfLongs;
+}
+
+---
+
+(program
+  (comment)
+  (comment)
+  (schema_declaration
+    (namespace_statement
+      (namespace_identifier)
+    )
+    (comment)
+    (identifier)
+  )
+  (comment)
+  (enum_declaration
+    (anotation_statement
+      (anotation_identifier)
+      (anotation_arguments
+        (literal_type (string))
+      )
+    )
+    (identifier)
+    (enum_block
+      (enumeral)
+      (enumeral) (comment)
+      (enumeral)
+    )
+    (default_enumeral
+      (enumeral)
+    )
+  )
+  (comment)
+  (comment)
+  (fixed_declaration
+    (call_expression
+      (identifier)
+      (argument_list
+        (literal_type (number))
+      )
+    )
+  )
+  (record_declaration
+    (identifier)
+    (statement_block
+      (comment)
+      (field_declaration
+        (primitive_type)
+        (anotation_statement
+          (anotation_identifier)
+          (anotation_arguments
+            (literal_type (string))
+          )
+        )
+        (identifier)
+      )
+      (field_declaration
+        (logical_type
+          (identifier)
+        )
+        (anotation_statement
+          (anotation_identifier)
+          (anotation_arguments
+            (literal_type (string))
+          )
+        )
+        (identifier)
+      )
+      (field_declaration
+        (logical_type (identifier))
+        (identifier)
+      )
+      (comment)
+      (field_declaration
+        (union
+          (primitive_type)
+          (logical_type (identifier))
+        )
+        (comment)
+        (anotation_statement
+          (anotation_identifier)
+          (anotation_arguments
+            (literal_type (string))
+          )
+        )
+        (default_value_expression
+          (identifier)
+          (value (literal_type (null)))
+        )
+      )
+      (comment)
+      (field_declaration
+        (nullable
+          (logical_type (identifier))
+        )
+        (default_value_expression
+          (identifier)
+          (value
+            (literal_type (null))
+          )
+        )
+      )
+      (field_declaration
+        (array
+          (primitive_type)
+        )
+        (identifier)
+      )
+    )
+  )
+)

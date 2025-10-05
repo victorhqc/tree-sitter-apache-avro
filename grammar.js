@@ -86,7 +86,10 @@ module.exports = grammar({
       prec(PREC.MEMBER, seq("import", $.identifier, $.string, ";")),
 
     fixed_declaration: ($) =>
-      prec(PREC.MEMBER, seq("fixed", $.call_expression, ";")),
+      prec(
+        PREC.MEMBER,
+        seq("fixed", choice($.call_expression, $.identifier), ";"),
+      ),
 
     record_declaration: ($) =>
       prec(
@@ -105,7 +108,13 @@ module.exports = grammar({
     enum_declaration: ($) =>
       prec(
         PREC.MEMBER,
-        seq("enum", $.identifier, $.enum_block, optional($.default_enumeral)),
+        seq(
+          optional($.anotation_statement),
+          "enum",
+          $.identifier,
+          $.enum_block,
+          optional($.default_enumeral),
+        ),
       ),
 
     enum_block: ($) =>
@@ -118,8 +127,7 @@ module.exports = grammar({
 
     enumeral: ($) => alias($.identifier, "enumeral"),
 
-    call_expression: ($) =>
-      prec(PREC.CALL, seq($._constructable_expression, $.argument_list)),
+    call_expression: ($) => prec(PREC.CALL, seq($.identifier, $.argument_list)),
 
     argument_list: ($) => seq("(", commaSep(optional($._expression)), ")"),
 

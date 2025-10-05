@@ -215,8 +215,17 @@
             "value": "fixed"
           },
           {
-            "type": "SYMBOL",
-            "name": "call_expression"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "call_expression"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              }
+            ]
           },
           {
             "type": "STRING",
@@ -285,6 +294,18 @@
       "content": {
         "type": "SEQ",
         "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "anotation_statement"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
           {
             "type": "STRING",
             "value": "enum"
@@ -419,7 +440,7 @@
         "members": [
           {
             "type": "SYMBOL",
-            "name": "_constructable_expression"
+            "name": "identifier"
           },
           {
             "type": "SYMBOL",

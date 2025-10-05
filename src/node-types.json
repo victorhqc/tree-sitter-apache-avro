@@ -152,10 +152,6 @@
         {
           "type": "identifier",
           "named": true
-        },
-        {
-          "type": "literal_type",
-          "named": true
         }
       ]
     }
@@ -217,6 +213,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "anotation_statement",
+          "named": true
+        },
         {
           "type": "default_enumeral",
           "named": true
@@ -313,6 +313,10 @@
       "types": [
         {
           "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
           "named": true
         }
       ]
