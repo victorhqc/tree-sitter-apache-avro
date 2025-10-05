@@ -52,7 +52,9 @@ record MyRecord {
           )
         )
         (array
-          (primitive_type)
+          (type_block
+            (primitive_type)
+          )
         )
         (identifier)
       )
@@ -98,19 +100,23 @@ record MyRecord {
           )
         )
         (map
-          (primitive_type)
+          (type_block
+            (primitive_type)
+          )
         )
         (identifier)
       )
       (field_declaration
         (array
-          (anotation_statement
-            (anotation_identifier)
-            (anotation_arguments
-              (literal_type (string))
+          (type_block
+            (anotation_statement
+              (anotation_identifier)
+              (anotation_arguments
+                (literal_type (string))
+              )
             )
+            (primitive_type)
           )
-          (primitive_type)
         )
         (identifier)
       )

@@ -31,7 +31,7 @@ record MyRecord {
 ---
 
 (program
-  (record_declaration (identifier)
+  (record_declaration name: (identifier)
     (statement_block
       (field_declaration
         type: (primitive_type)
@@ -83,13 +83,13 @@ record MyRecord {
 ---
 
 (program
-  (record_declaration (identifier)
+  (record_declaration name: (identifier)
     (statement_block
       (field_declaration
         type: (primitive_type)
         (default_value_expression
-          (identifier)
-          (value
+          left: (identifier)
+          right: (value
             (literal_type
               (true)
             )
@@ -99,8 +99,8 @@ record MyRecord {
       (field_declaration
         type: (primitive_type)
         (default_value_expression
-          (identifier)
-          (value
+          left: (identifier)
+          right: (value
             (literal_type
               (number)
             )
@@ -110,8 +110,8 @@ record MyRecord {
       (field_declaration
         type: (primitive_type)
         (default_value_expression
-          (identifier)
-          (value
+          left: (identifier)
+          right: (value
             (literal_type
               (string)
             )
@@ -121,8 +121,8 @@ record MyRecord {
       (field_declaration
         type: (primitive_type)
         (default_value_expression
-          (identifier)
-          (value
+          left: (identifier)
+          right: (value
             (literal_type
               (number)
             )
@@ -147,36 +147,38 @@ record MyRecord {
 ---
 
 (program
-  (record_declaration (identifier)
+  (record_declaration name: (identifier)
     (statement_block
       (field_declaration
-        (logical_type
+        type: (logical_type
           (known_logical_type)
         )
-        (identifier)
+        name: (identifier)
       )
       (field_declaration
-        (logical_type
-          (known_logical_type)
+        type: (logical_type
+          (known_logical_type (decimal))
         )
-        (identifier)
+        name: (identifier)
       )
       (field_declaration
-        (logical_type
+        type: (logical_type
           (known_logical_type
-            (argument_list
-              (literal_type
-                (number)
-              )
-              (literal_type
-                (number)
+            (decimal
+              (argument_list
+                (literal_type
+                  (number)
+                )
+                (literal_type
+                  (number)
+                )
               )
             )
           )
         )
         (default_value_expression
-          (identifier)
-          (value
+          left: (identifier)
+          right: (value
             (literal_type
               (number)
             )
@@ -184,12 +186,12 @@ record MyRecord {
         )
       )
       (field_declaration
-        (logical_type
+        type: (logical_type
           (known_logical_type)
         )
         (default_value_expression
-          (identifier)
-          (value
+          left: (identifier)
+          right: (value
             (literal_type
               (string)
             )

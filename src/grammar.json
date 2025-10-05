@@ -954,21 +954,29 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "FIELD",
+            "name": "left",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            }
           },
           {
             "type": "STRING",
             "value": "="
           },
           {
-            "type": "ALIAS",
+            "type": "FIELD",
+            "name": "right",
             "content": {
-              "type": "SYMBOL",
-              "name": "_constructable_expression"
-            },
-            "named": true,
-            "value": "value"
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_constructable_expression"
+              },
+              "named": true,
+              "value": "value"
+            }
           }
         ]
       }
@@ -1069,15 +1077,11 @@
       "members": [
         {
           "type": "STRING",
-          "value": "array<"
+          "value": "array"
         },
         {
           "type": "SYMBOL",
-          "name": "_possible_types"
-        },
-        {
-          "type": "STRING",
-          "value": ">"
+          "name": "type_block"
         }
       ]
     },
@@ -1086,7 +1090,20 @@
       "members": [
         {
           "type": "STRING",
-          "value": "map<"
+          "value": "map"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "type_block"
+        }
+      ]
+    },
+    "type_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "<"
         },
         {
           "type": "SYMBOL",
@@ -1103,7 +1120,20 @@
       "members": [
         {
           "type": "STRING",
-          "value": "union {"
+          "value": "union"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "union_block"
+        }
+      ]
+    },
+    "union_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{"
         },
         {
           "type": "CHOICE",
@@ -1178,25 +1208,8 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "decimal"
-            },
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "argument_list"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "decimal"
         },
         {
           "type": "STRING",
@@ -1217,6 +1230,27 @@
         {
           "type": "STRING",
           "value": "uuid"
+        }
+      ]
+    },
+    "decimal": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "decimal"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "argument_list"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },

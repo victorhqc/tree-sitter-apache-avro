@@ -8,6 +8,7 @@
   "enum"
   "throws"
   "namespace"
+  "union"
   (oneway)
 ] @keyword
 
@@ -18,18 +19,30 @@
   "]"
   "{"
   "}"
+  "<"
+  ">"
 ]  @punctuation.bracket
+
+[
+  ";"
+  ","
+] @punctuation.delimiter
 
 (comment) @comment
 
 [
-  (primitive_type)
-  (parameter type: (logical_type (identifier)))
-] @type
+  (field_declaration name: (identifier))
+  (parameter name: (identifier))
+  (default_value_expression left: (identifier))
+  (throw_statement (identifier))
+  (enum_block (enumeral))
+] @variable
 
 [
-  (void)
-] @constant.builtin
+  (primitive_type)
+  (logical_type (identifier))
+  (logical_type (call_expression (identifier)))
+] @type
 
 [
   (string)
@@ -41,17 +54,27 @@
 ] @number
 
 [
+  (void)
   (true)
   (false)
   (null)
 ] @constant.builtin
 
 [
-  ";"
-  ","
-] @punctuation.delimiter
+  (default_enumeral (enumeral))
+] @constant
 
-(rpc_message_declaration name: (identifier) @function)
+[
+  (known_logical_type)
+  (map)
+  (array)
+] @function.builtin
+
+[
+  (rpc_message_declaration name: (identifier))
+  (fixed_declaration (identifier))
+  (fixed_declaration (call_expression (identifier)))
+] @function
 
 (anotation_statement name: (anotation_identifier) @attribute)
 

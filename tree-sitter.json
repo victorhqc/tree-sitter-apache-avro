@@ -8,7 +8,9 @@
       "scope": "source.apache_avro",
       "file-types": ["avdl"],
       "injection-regex": "^apache_avro$",
-      "class-name": "TreeSitterApacheAvro"
+      "class-name": "TreeSitterApacheAvro",
+      "highlights": "queries/highlights.scm",
+      "locals": "queries/locals.scm"
     }
   ],
   "metadata": {

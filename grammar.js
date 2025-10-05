@@ -205,7 +205,11 @@ module.exports = grammar({
     default_value_expression: ($) =>
       prec.right(
         PREC.ASSIGN,
-        seq($.identifier, "=", alias($._constructable_expression, $.value)),
+        seq(
+          field("left", $.identifier),
+          "=",
+          field("right", alias($._constructable_expression, $.value)),
+        ),
       ),
 
     _expression: ($) =>
@@ -244,11 +248,15 @@ module.exports = grammar({
       return token(seq(alpha, repeat(alphanumeric)));
     },
 
-    array: ($) => seq("array<", $._possible_types, ">"),
+    array: ($) => seq("array", $.type_block),
 
-    map: ($) => seq("map<", $._possible_types, ">"),
+    map: ($) => seq("map", $.type_block),
 
-    union: ($) => seq("union {", commaSep($._possible_types), "}"),
+    type_block: ($) => seq("<", $._possible_types, ">"),
+
+    union: ($) => seq("union", $.union_block),
+
+    union_block: ($) => seq("{", commaSep($._possible_types), "}"),
 
     nullable: ($) => seq($._possible_types, "?"),
 
@@ -257,13 +265,15 @@ module.exports = grammar({
 
     known_logical_type: ($) =>
       choice(
-        seq("decimal", optional($.argument_list)),
+        $.decimal,
         "date",
         "time_ms",
         "timestamp_ms",
         "local_timestamp_ms",
         "uuid",
       ),
+
+    decimal: ($) => seq("decimal", optional($.argument_list)),
 
     primitive_type: (_) =>
       choice(
