@@ -1,0 +1,117 @@
+========================
+Arrays
+========================
+
+record MyRecord {
+  array<int> numbers;
+  array<array<int>> nested_numbers;
+  array<decimal(10, 1)> decimals;
+  array<Foo> foos;
+}
+
+---
+
+(program
+  (record_declaration (identifier)
+    (statement_block
+      (field_declaration
+        (array
+          (primitive_type)
+        )
+        (identifier)
+      )
+      (field_declaration
+        (array
+          (array
+            (primitive_type)
+          )
+        )
+        (identifier)
+      )
+      (field_declaration
+        (array
+          (logical_type
+            (known_logical_type
+              (argument_list
+                (literal_type
+                  (number)
+                )
+                (literal_type
+                  (number)
+                )
+              )
+            )
+          )
+        )
+        (identifier)
+      )
+      (field_declaration
+        (array
+          (logical_type
+            (identifier)
+          )
+        )
+        (identifier)
+      )
+    )
+  )
+)
+
+========================
+Maps
+========================
+
+record MyRecord {
+  map<int> numbers;
+  map<Foo> foos;
+  map<array<int>> numberArrays;
+  map<map<string>> nestedMaps;
+  array<map<string>> arrayStrings;
+}
+
+---
+
+(program
+  (record_declaration (identifier)
+    (statement_block
+      (field_declaration
+        (map
+          (primitive_type)
+        )
+        (identifier)
+      )
+      (field_declaration
+        (map
+          (logical_type
+            (identifier)
+          )
+        )
+        (identifier)
+      )
+      (field_declaration
+        (map
+          (array
+            (primitive_type)
+          )
+        )
+        (identifier)
+      )
+      (field_declaration
+        (map
+          (map
+            (primitive_type)
+          )
+        )
+        (identifier)
+      )
+      (field_declaration
+        (array
+          (map
+            (primitive_type)
+          )
+        )
+        (identifier)
+      )
+    )
+  )
+)

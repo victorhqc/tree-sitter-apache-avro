@@ -1,4 +1,4 @@
-"""Unofficial Apache Avro Language Parser, it includes IDL and AVSC"""
+"""Unofficial Apache Avro Language Parser for the IDL Language"""
 
 from importlib.resources import files as _files
 

@@ -1,0 +1,32 @@
+========================
+Schema
+========================
+
+schema int;
+
+---
+
+(program
+  (schema_declaration
+    (primitive_type)
+  )
+)
+
+========================
+Schema With Namespace
+========================
+
+
+namespace org.apache.avro.test;
+schema TestRecord;
+
+---
+
+(program
+  (schema_declaration
+    (namespace_statement
+      (namespace_identifier)
+    )
+    (identifier)
+  )
+)

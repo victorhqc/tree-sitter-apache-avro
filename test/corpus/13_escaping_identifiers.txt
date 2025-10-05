@@ -1,0 +1,15 @@
+========================
+Escaped Identifier
+========================
+
+void `error`();
+
+---
+
+(program
+  (rpc_message_declaration
+    (return_value (void))
+    (identifier)
+    (parameter_list)
+  )
+)

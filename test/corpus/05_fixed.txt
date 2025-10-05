@@ -1,0 +1,31 @@
+========================
+Fixed Length Field
+========================
+
+fixed MD5(16);
+fixed SHA256(32);
+
+---
+
+(program
+  (fixed_declaration
+    (call_expression
+      (identifier)
+      (argument_list
+        (literal_type
+          (number)
+        )
+      )
+    )
+  )
+  (fixed_declaration
+    (call_expression
+      (identifier)
+      (argument_list
+        (literal_type
+          (number)
+        )
+      )
+    )
+  )
+)

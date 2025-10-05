@@ -1,7 +1,7 @@
 {
   "name": "tree-sitter-apache-avro",
   "version": "0.1.0",
-  "description": "Unofficial Apache Avro Language Parser, it includes IDL and AVSC",
+  "description": "Unofficial Apache Avro Language Parser for the IDL Language",
   "repository": "https://github.com/victorhqc/tree-sitter-apache-avro",
   "license": "MIT",
   "author": {
@@ -28,15 +28,15 @@
     "*.wasm"
   ],
   "dependencies": {
-    "node-addon-api": "^8.2.1",
-    "node-gyp-build": "^4.8.2"
+    "node-addon-api": "^8.3.1",
+    "node-gyp-build": "^4.8.4"
   },
   "devDependencies": {
     "prebuildify": "^6.0.1",
-    "tree-sitter-cli": "^0.25.3"
+    "tree-sitter-cli": "^0.25.10"
   },
   "peerDependencies": {
-    "tree-sitter": "^0.21.1"
+    "tree-sitter": "^0.25.0"
   },
   "peerDependenciesMeta": {
     "tree-sitter": {
@@ -47,6 +47,7 @@
     "install": "node-gyp-build",
     "prestart": "tree-sitter build --wasm",
     "start": "tree-sitter playground",
-    "test": "node --test bindings/node/*_test.js"
+    "test": "node --test bindings/node/*_test.js",
+    "test:parser": "tree-sitter generate && tree-sitter test"
   }
 }

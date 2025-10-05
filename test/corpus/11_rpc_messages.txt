@@ -1,0 +1,97 @@
+========================
+RPC Message Declaration
+========================
+
+int add(int foo, int bar = 0);
+
+---
+
+(program
+  (rpc_message_declaration
+    (return_value
+      (primitive_type)
+    )
+    (identifier)
+    (parameter_list
+      (parameter
+        (primitive_type)
+        (identifier)
+      )
+      (parameter
+        (primitive_type)
+        (default_value_expression
+          (identifier)
+          (value
+            (literal_type
+              (number)
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
+========================
+Void RPC Message Declaration
+========================
+
+void logMessage(string message);
+
+---
+
+(program
+  (rpc_message_declaration
+    (return_value
+      (void)
+    )
+    (identifier)
+    (parameter_list
+      (parameter
+        (primitive_type)
+        (identifier)
+      )
+    )
+  )
+)
+
+========================
+RPC Message Declaration Throws
+========================
+
+void goKaboom() throws Kaboom;
+
+---
+
+(program
+  (rpc_message_declaration
+    (return_value (void))
+    (identifier)
+    (parameter_list)
+    (throw_statement
+      (identifier)
+    )
+  )
+)
+
+========================
+One-way RPC Message Declaration
+========================
+
+void fireAndForget(string message) oneway;
+
+---
+
+(program
+  (rpc_message_declaration
+    (return_value (void))
+    (identifier)
+    (parameter_list
+      (parameter
+        (primitive_type)
+        (identifier)
+      )
+    )
+    (oneway)
+  )
+)

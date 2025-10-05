@@ -1,0 +1,292 @@
+========================
+Empty Record
+========================
+
+record MyRecord {}
+
+---
+
+(program
+  (record_declaration (identifier)
+    (statement_block)
+  )
+)
+
+
+========================
+Record with primitive types
+========================
+
+record MyRecord {
+  int int_field;
+  long long_field;
+  string string_field;
+  boolean is_field;
+  float float_field;
+  double double_field;
+  null null_field;
+  bytes bytes_field;
+}
+
+---
+
+(program
+  (record_declaration (identifier)
+    (statement_block
+      (field_declaration
+        (primitive_type)
+        (identifier)
+      )
+      (field_declaration
+        (primitive_type)
+        (identifier)
+      )
+      (field_declaration
+        (primitive_type)
+        (identifier)
+      )
+      (field_declaration
+        (primitive_type)
+        (identifier)
+      )
+      (field_declaration
+        (primitive_type)
+        (identifier)
+      )
+      (field_declaration
+        (primitive_type)
+        (identifier)
+      )
+      (field_declaration
+        (primitive_type)
+        (identifier)
+      )
+      (field_declaration
+        (primitive_type)
+        (identifier)
+      )
+    )
+  )
+)
+
+========================
+Record with default values
+========================
+
+record MyRecord {
+  boolean active = true;
+  int result_code = -1;
+  string message = "hello";
+  float value = 1.50;
+}
+
+---
+
+(program
+  (record_declaration (identifier)
+    (statement_block
+      (field_declaration
+        (primitive_type)
+        (default_value_expression
+          (identifier)
+          (value
+            (literal_type
+              (true)
+            )
+          )
+        )
+      )
+      (field_declaration
+        (primitive_type)
+        (default_value_expression
+          (identifier)
+          (value
+            (literal_type
+              (number)
+            )
+          )
+        )
+      )
+      (field_declaration
+        (primitive_type)
+        (default_value_expression
+          (identifier)
+          (value
+            (literal_type
+              (string)
+            )
+          )
+        )
+      )
+      (field_declaration
+        (primitive_type)
+        (default_value_expression
+          (identifier)
+          (value
+            (literal_type
+              (number)
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
+========================
+Record with logical types
+========================
+
+record MyRecord {
+  date someDate;
+  decimal someDecimal;
+  decimal(9,2) someDecimal = 1234.05;
+  uuid pk = "a1a2a3a4-b1b2-c1c2-d1d2-d3d4d5d6d7d8";
+}
+
+---
+
+(program
+  (record_declaration (identifier)
+    (statement_block
+      (field_declaration
+        (logical_type
+          (known_logical_type)
+        )
+        (identifier)
+      )
+      (field_declaration
+        (logical_type
+          (known_logical_type)
+        )
+        (identifier)
+      )
+      (field_declaration
+        (logical_type
+          (known_logical_type
+            (argument_list
+              (literal_type
+                (number)
+              )
+              (literal_type
+                (number)
+              )
+            )
+          )
+        )
+        (default_value_expression
+          (identifier)
+          (value
+            (literal_type
+              (number)
+            )
+          )
+        )
+      )
+      (field_declaration
+        (logical_type
+          (known_logical_type)
+        )
+        (default_value_expression
+          (identifier)
+          (value
+            (literal_type
+              (string)
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
+
+========================
+Record with unknown logical types
+========================
+
+record MyRecord {
+  unknown_type someUnknown;
+  unknown("some") someUnknown;
+}
+
+---
+
+(program
+  (record_declaration (identifier)
+    (statement_block
+      (field_declaration
+        (logical_type
+          (identifier)
+        )
+        (identifier)
+      )
+      (field_declaration
+        (logical_type
+          (call_expression
+            (identifier)
+            (argument_list
+              (literal_type
+                (string)
+              )
+            )
+          )
+        )
+        (identifier)
+      )
+    )
+  )
+)
+
+========================
+Record logical types as annotation
+========================
+
+record Job {
+  @logicalType("timestamp-micros")
+  long finishTime;
+}
+
+---
+
+(program
+  (record_declaration (identifier)
+    (statement_block
+      (field_declaration
+        (anotation_statement
+          (anotation_identifier)
+          (anotation_arguments
+            (literal_type
+              (string)
+            )
+          )
+        )
+        (primitive_type)
+        (identifier)
+      )
+    )
+  )
+)
+
+========================
+Record referencing schemata
+========================
+
+record Card {
+  Suit suit;
+}
+
+---
+
+(program
+  (record_declaration (identifier)
+    (statement_block
+      (field_declaration
+        (logical_type
+          (identifier)
+        )
+        (identifier)
+      )
+    )
+  )
+)

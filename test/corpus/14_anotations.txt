@@ -1,0 +1,156 @@
+========================
+Anotations for ordering
+========================
+
+record MyRecord {
+  string @order("ascending") myAscendingSortField;
+}
+
+---
+
+(program
+  (record_declaration
+    (identifier)
+    (statement_block
+      (field_declaration
+        (primitive_type)
+        (anotation_statement
+          (anotation_identifier)
+          (anotation_arguments
+            (literal_type
+              (string)
+            )
+          )
+        )
+        (identifier)
+      )
+    )
+  )
+)
+
+========================
+Anotations Preceding a Field
+========================
+
+record MyRecord {
+  @java-class("java.util.ArrayList") array<string> myStrings;
+}
+
+---
+
+(program
+  (record_declaration
+    (identifier)
+    (statement_block
+      (field_declaration
+        (anotation_statement
+          (anotation_identifier)
+          (anotation_arguments
+            (literal_type
+              (string)
+            )
+          )
+        )
+        (array
+          (primitive_type)
+        )
+        (identifier)
+      )
+    )
+  )
+)
+
+========================
+Serialize/Deserialize
+========================
+
+record MyRecord {
+  @java-class("BigDecimal") string value;
+  @java-key-class("io.File") map<string> files;
+  array<@java.class("BigDecimal") string> weights;
+}
+
+---
+
+(program
+  (record_declaration
+    (identifier)
+    (statement_block
+      (field_declaration
+        (anotation_statement
+          (anotation_identifier)
+          (anotation_arguments
+            (literal_type
+              (string)
+            )
+          )
+        )
+        (primitive_type)
+        (identifier)
+      )
+      (field_declaration
+        (anotation_statement
+          (anotation_identifier)
+          (anotation_arguments
+            (literal_type
+              (string)
+            )
+          )
+        )
+        (map
+          (primitive_type)
+        )
+        (identifier)
+      )
+      (field_declaration
+        (array
+          (anotation_statement
+            (anotation_identifier)
+            (anotation_arguments
+              (literal_type (string))
+            )
+          )
+          (primitive_type)
+        )
+        (identifier)
+      )
+    )
+  )
+)
+
+========================
+Aliases
+========================
+
+@aliases(["org.old.OldRecord", "org.ancient.AncientRecord"])
+record MyRecord {
+  string @aliases(["oldField", "ancientField"]) myNewField;
+}
+
+---
+
+(program
+  (record_declaration
+    (anotation_statement
+      (anotation_identifier)
+      (anotation_arguments
+        (literal_type (string))
+        (literal_type (string))
+      )
+    )
+    (identifier)
+    (statement_block
+      (field_declaration
+        (primitive_type)
+        (anotation_statement
+          (anotation_identifier)
+          (anotation_arguments
+            (literal_type (string))
+            (literal_type (string))
+          )
+        )
+        (identifier)
+      )
+    )
+  )
+)
