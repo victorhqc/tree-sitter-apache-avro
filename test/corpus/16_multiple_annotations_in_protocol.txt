@@ -1,0 +1,199 @@
+================================
+Multiple Annotations Before Record in Protocol
+================================
+
+@namespace("com.example")
+protocol TestProtocol {
+  @namespace("sub.namespace")
+  @logicalType("customType")
+  record TestRecord {
+    string field;
+  }
+}
+
+---
+
+(program
+  (protocol_declaration
+    (anotation_statement
+      name: (anotation_identifier)
+      (anotation_arguments
+        (literal_type (string))))
+    name: (identifier)
+    (protocol_block
+      (record_declaration
+        (anotation_statement
+          name: (anotation_identifier)
+          (anotation_arguments
+            (literal_type (string))))
+        (anotation_statement
+          name: (anotation_identifier)
+          (anotation_arguments
+            (literal_type (string))))
+        name: (identifier)
+        (statement_block
+          (field_declaration
+            type: (primitive_type)
+            name: (identifier)))))))
+
+================================
+Multiple Annotations Before Enum in Protocol
+================================
+
+@namespace("com.example")
+protocol TestProtocol {
+  @namespace("enums")
+  @doc("Status enum")
+  enum Status {
+    ACTIVE,
+    INACTIVE
+  }
+}
+
+---
+
+(program
+  (protocol_declaration
+    (anotation_statement
+      name: (anotation_identifier)
+      (anotation_arguments
+        (literal_type (string))))
+    name: (identifier)
+    (protocol_block
+      (enum_declaration
+        (anotation_statement
+          name: (anotation_identifier)
+          (anotation_arguments
+            (literal_type (string))))
+        (anotation_statement
+          name: (anotation_identifier)
+          (anotation_arguments
+            (literal_type (string))))
+        name: (identifier)
+        (enum_block
+          (enumeral (identifier))
+          (enumeral (identifier)))))))
+
+================================
+Multiple Annotations Before Error in Protocol
+================================
+
+@namespace("com.example")
+protocol TestProtocol {
+  @namespace("errors")
+  @doc("Custom error")
+  error CustomError {
+    string message;
+  }
+}
+
+---
+
+(program
+  (protocol_declaration
+    (anotation_statement
+      name: (anotation_identifier)
+      (anotation_arguments
+        (literal_type (string))))
+    name: (identifier)
+    (protocol_block
+      (error_declaration
+        (anotation_statement
+          name: (anotation_identifier)
+          (anotation_arguments
+            (literal_type (string))))
+        (anotation_statement
+          name: (anotation_identifier)
+          (anotation_arguments
+            (literal_type (string))))
+        name: (identifier)
+        (statement_block
+          (field_declaration
+            type: (primitive_type)
+            name: (identifier)))))))
+
+================================
+Multiple Annotations on Same Line
+================================
+
+@namespace("com.example")
+protocol TestProtocol {
+  @namespace("sub") @logicalType("custom")
+  record TestRecord {
+    int value;
+  }
+}
+
+---
+
+(program
+  (protocol_declaration
+    (anotation_statement
+      name: (anotation_identifier)
+      (anotation_arguments
+        (literal_type (string))))
+    name: (identifier)
+    (protocol_block
+      (record_declaration
+        (anotation_statement
+          name: (anotation_identifier)
+          (anotation_arguments
+            (literal_type (string))))
+        (anotation_statement
+          name: (anotation_identifier)
+          (anotation_arguments
+            (literal_type (string))))
+        name: (identifier)
+        (statement_block
+          (field_declaration
+            type: (primitive_type)
+            name: (identifier)))))))
+
+================================
+Three or More Annotations
+================================
+
+@namespace("com.example")
+protocol TestProtocol {
+  @namespace("sub")
+  @logicalType("custom")
+  @doc("Test record with three annotations")
+  @aliases(["OldName", "LegacyName"])
+  record TestRecord {
+    int id;
+  }
+}
+
+---
+
+(program
+  (protocol_declaration
+    (anotation_statement
+      name: (anotation_identifier)
+      (anotation_arguments
+        (literal_type (string))))
+    name: (identifier)
+    (protocol_block
+      (record_declaration
+        (anotation_statement
+          name: (anotation_identifier)
+          (anotation_arguments
+            (literal_type (string))))
+        (anotation_statement
+          name: (anotation_identifier)
+          (anotation_arguments
+            (literal_type (string))))
+        (anotation_statement
+          name: (anotation_identifier)
+          (anotation_arguments
+            (literal_type (string))))
+        (anotation_statement
+          name: (anotation_identifier)
+          (anotation_arguments
+            (literal_type (string))
+            (literal_type (string))))
+        name: (identifier)
+        (statement_block
+          (field_declaration
+            type: (primitive_type)
+            name: (identifier)))))))

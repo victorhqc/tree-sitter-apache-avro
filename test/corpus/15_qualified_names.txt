@@ -1,0 +1,23 @@
+========================
+Qualified Name in Type Reference
+========================
+
+record MyRecord {
+  com.example.OtherRecord field1;
+}
+
+---
+
+(program
+  (record_declaration
+    (identifier)
+    (statement_block
+      (field_declaration
+        (logical_type
+          (identifier))
+        (identifier)
+      )
+    )
+  )
+)
+

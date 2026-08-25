@@ -25,7 +25,6 @@ module.exports = grammar({
   conflicts: ($) => [
     // [$.protocol_declaration, $.record_declaration],
     // [$.record_declaration, $._anotated_type],
-    [$._anotated_type, $.nullable],
   ],
 
   word: ($) => $.identifier,
@@ -72,7 +71,7 @@ module.exports = grammar({
       prec(
         PREC.MEMBER,
         seq(
-          optional($.anotation_statement),
+          repeat($.anotation_statement),
           "protocol",
           field("name", $.identifier),
           $.protocol_block,
@@ -80,22 +79,27 @@ module.exports = grammar({
       ),
 
     protocol_block: ($) =>
-      seq("{", optional(repeat($._protocol_declarations)), "}"),
+      seq("{", repeat($._protocol_declarations), "}"),
 
     import_declaration: ($) =>
       prec(PREC.MEMBER, seq("import", $.identifier, $.literal_type, ";")),
 
     fixed_declaration: ($) =>
       prec(
-        PREC.MEMBER,
-        seq("fixed", choice($.call_expression, $.identifier), ";"),
+        PREC.MEMBER + 1,
+        seq(
+          repeat($.anotation_statement),
+          "fixed",
+          choice($.call_expression, $.identifier),
+          ";"
+        ),
       ),
 
     record_declaration: ($) =>
       prec(
-        PREC.MEMBER,
+        PREC.MEMBER + 1,
         seq(
-          optional($.anotation_statement),
+          repeat($.anotation_statement),
           "record",
           field("name", $.identifier),
           $.statement_block,
@@ -104,15 +108,20 @@ module.exports = grammar({
 
     error_declaration: ($) =>
       prec(
-        PREC.MEMBER,
-        seq("error", field("name", $.identifier), $.statement_block),
+        PREC.MEMBER + 1,
+        seq(
+          repeat($.anotation_statement),
+          "error",
+          field("name", $.identifier),
+          $.statement_block
+        ),
       ),
 
     enum_declaration: ($) =>
       prec(
-        PREC.MEMBER,
+        PREC.MEMBER + 1,
         seq(
-          optional($.anotation_statement),
+          repeat($.anotation_statement),
           "enum",
           field("name", $.identifier),
           $.enum_block,
@@ -143,11 +152,14 @@ module.exports = grammar({
       ),
 
     rpc_message_declaration: ($) =>
-      seq(
-        $.return_value,
-        seq(field("name", $.identifier), $.parameter_list),
-        optional(choice($.throw_statement, $.oneway)),
-        ";",
+      prec(
+        PREC.MEMBER - 1,
+        seq(
+          $.return_value,
+          seq(field("name", $.identifier), $.parameter_list),
+          optional(choice($.throw_statement, $.oneway)),
+          ";",
+        ),
       ),
 
     return_value: ($) => choice($._possible_types, $.void),
@@ -194,7 +206,7 @@ module.exports = grammar({
         $._anotated_type,
       ),
 
-    _anotated_type: ($) => seq($.anotation_statement, $._possible_types),
+    _anotated_type: ($) => prec(-1, seq($.anotation_statement, $._possible_types)),
 
     assignment_expression: ($) =>
       prec.right(
@@ -219,7 +231,17 @@ module.exports = grammar({
         $.call_expression,
       ),
 
-    _constructable_expression: ($) => choice($.literal_type, $.identifier),
+    _constructable_expression: ($) =>
+      choice($.literal_type, $.identifier, $.array_value, $.map_value),
+
+    array_value: ($) =>
+      seq("[", commaSep(optional($._constructable_expression)), "]"),
+
+    map_value: ($) =>
+      seq("{", commaSep(optional($.map_entry)), "}"),
+
+    map_entry: ($) =>
+      seq(field("key", $.string), ":", field("value", $._constructable_expression)),
 
     namespace_identifier: (_) => {
       const alpha =
@@ -241,10 +263,10 @@ module.exports = grammar({
 
     identifier: (_) => {
       const alpha =
-        /[^\x00-\x1F\s\p{Zs}0-9:;"'@#.,|^&<=>+\-*/\\%?!~()\[\]{}\uFEFF\u2060\u200B\u2028\u2029]|\\u[0-9a-fA-F]{4}|\\u\{[0-9a-fA-F]+\}/;
+        /[^\x00-\x1F\s\p{Zs}0-9:;"'@#,|^&<=>+\-*/\\%?!~()\[\]{}\uFEFF\u2060\u200B\u2028\u2029]|\\u[0-9a-fA-F]{4}|\\u\{[0-9a-fA-F]+\}/;
 
       const alphanumeric =
-        /[^\x00-\x1F\s\p{Zs}:;"'@#.,|^&<=>+\-*/\\%?!~()\[\]{}\uFEFF\u2060\u200B\u2028\u2029]|\\u[0-9a-fA-F]{4}|\\u\{[0-9a-fA-F]+\}/;
+        /[^\x00-\x1F\s\p{Zs}:;"'@#,|^&<=>+\-*/\\%?!~()\[\]{}\uFEFF\u2060\u200B\u2028\u2029]|\\u[0-9a-fA-F]{4}|\\u\{[0-9a-fA-F]+\}/;
       return token(seq(alpha, repeat(alphanumeric)));
     },
 

@@ -1,0 +1,71 @@
+========================
+Map default values
+========================
+
+record MyRecord {
+  map<string> props = {"key": "value"};
+  map<int> counts = {"a": 1, "b": 2};
+  map<string> empty = {};
+}
+
+---
+
+(program
+  (record_declaration name: (identifier)
+    (statement_block
+      (field_declaration
+        type: (map
+          (type_block
+            (primitive_type)
+          )
+        )
+        (default_value_expression
+          left: (identifier)
+          right: (value
+            (map_value
+              (map_entry
+                key: (string)
+                value: (literal_type (string))
+              )
+            )
+          )
+        )
+      )
+      (field_declaration
+        type: (map
+          (type_block
+            (primitive_type)
+          )
+        )
+        (default_value_expression
+          left: (identifier)
+          right: (value
+            (map_value
+              (map_entry
+                key: (string)
+                value: (literal_type (number))
+              )
+              (map_entry
+                key: (string)
+                value: (literal_type (number))
+              )
+            )
+          )
+        )
+      )
+      (field_declaration
+        type: (map
+          (type_block
+            (primitive_type)
+          )
+        )
+        (default_value_expression
+          left: (identifier)
+          right: (value
+            (map_value)
+          )
+        )
+      )
+    )
+  )
+)

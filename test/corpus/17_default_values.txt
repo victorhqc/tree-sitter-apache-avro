@@ -1,0 +1,64 @@
+========================
+Array default values
+========================
+
+record MyRecord {
+  array<string> tags = ["a", "b"];
+  array<int> codes = [1, 2, 3];
+  array<string> empty = [];
+}
+
+---
+
+(program
+  (record_declaration name: (identifier)
+    (statement_block
+      (field_declaration
+        type: (array
+          (type_block
+            (primitive_type)
+          )
+        )
+        (default_value_expression
+          left: (identifier)
+          right: (value
+            (array_value
+              (literal_type (string))
+              (literal_type (string))
+            )
+          )
+        )
+      )
+      (field_declaration
+        type: (array
+          (type_block
+            (primitive_type)
+          )
+        )
+        (default_value_expression
+          left: (identifier)
+          right: (value
+            (array_value
+              (literal_type (number))
+              (literal_type (number))
+              (literal_type (number))
+            )
+          )
+        )
+      )
+      (field_declaration
+        type: (array
+          (type_block
+            (primitive_type)
+          )
+        )
+        (default_value_expression
+          left: (identifier)
+          right: (value
+            (array_value)
+          )
+        )
+      )
+    )
+  )
+)

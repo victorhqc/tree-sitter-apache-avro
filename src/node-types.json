@@ -49,6 +49,10 @@
       "required": false,
       "types": [
         {
+          "type": "array_value",
+          "named": true
+        },
+        {
           "type": "assignment_expression",
           "named": true
         },
@@ -62,6 +66,10 @@
         },
         {
           "type": "literal_type",
+          "named": true
+        },
+        {
+          "type": "map_value",
           "named": true
         }
       ]
@@ -83,6 +91,33 @@
     }
   },
   {
+    "type": "array_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "array_value",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "literal_type",
+          "named": true
+        },
+        {
+          "type": "map_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "assignment_expression",
     "named": true,
     "fields": {
@@ -90,6 +125,10 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "array_value",
+            "named": true
+          },
           {
             "type": "assignment_expression",
             "named": true
@@ -104,6 +143,10 @@
           },
           {
             "type": "literal_type",
+            "named": true
+          },
+          {
+            "type": "map_value",
             "named": true
           }
         ]
@@ -275,9 +318,13 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "anotation_statement",
+          "named": true
+        },
         {
           "type": "statement_block",
           "named": true
@@ -354,9 +401,13 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "anotation_statement",
+          "named": true
+        },
         {
           "type": "call_expression",
           "named": true
@@ -466,6 +517,59 @@
       "types": [
         {
           "type": "type_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "map_entry",
+    "named": true,
+    "fields": {
+      "key": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "array_value",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "literal_type",
+            "named": true
+          },
+          {
+            "type": "map_value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "map_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "map_entry",
           "named": true
         }
       ]
@@ -979,11 +1083,19 @@
       "required": true,
       "types": [
         {
+          "type": "array_value",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
         {
           "type": "literal_type",
+          "named": true
+        },
+        {
+          "type": "map_value",
           "named": true
         }
       ]
@@ -999,6 +1111,10 @@
   },
   {
     "type": ",",
+    "named": false
+  },
+  {
+    "type": ":",
     "named": false
   },
   {
@@ -1140,11 +1256,11 @@
   },
   {
     "type": "string",
-    "named": true
+    "named": false
   },
   {
     "type": "string",
-    "named": false
+    "named": true
   },
   {
     "type": "throws",
